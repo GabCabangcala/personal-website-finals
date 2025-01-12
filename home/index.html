@@ -30,12 +30,58 @@
     </div>
   </div>
 
+  <div id="app3">
+    <form v-on:submit.prevent="addItem">
+      <p>
+        What do you need? <br>
+        <input type="text" required placeholder="item name.." v-model="itemName">
+      </p>
+      <p>
+        How many? <br>
+        <input type="number" placeholder="number of items.." v-model="itemNumber">
+      </p>
+      <p>
+        Important?
+        <label>
+          <input type="checkbox" v-model="itemImportant">
+          {{ itemImportant }}
+        </label>
+      </p>
+      <button type="submit">Add item</button>
+    </form>
+    <br>
+    <hr>
+  
+    <div>
+      <p><strong>Shopping list:</strong></p>
+      <ul id="ulToFind">
+        <li 
+          v-for="item in shoppingList" 
+          v-bind:class="{ impClass: item.important }"
+          v-on:click="item.found=!item.found"
+          v-show="!item.found">
+            {{ item.name }}, {{ item.number}}
+        </li>
+      </ul>
+      <ul id="ulFound">
+        <li 
+          v-for="item in shoppingList" 
+          v-bind:class="{ impClass: item.important }"
+          v-on:click="item.found=!item.found"
+          v-show="item.found">
+            {{ item.name }}, {{ item.number}}
+        </li>
+      </ul>
+    </div>
+  </div>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/feature2.css">
+
 
     <title>About Me</title>
 </head>
