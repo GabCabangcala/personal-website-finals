@@ -18,18 +18,16 @@
   <div v-bind:class="vueClass">This element is bound to the "pinkBG" class.</div>
 </div>
 
-<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-<script src="js/vue.js"></script>
-<script src="js/images.js"></script>
+
 
 <div id="app2">
     <div>
-    <figure v-for="x in manyFoods">
-    <img v-bind:src="x.url">
-    <figcaption>{{ x.name }}</figcaption>
-    </figure>
+      <figure v-for="x in manyFoods">
+        <img v-bind:src="x.url">
+        <figcaption>{{ x.name }}</figcaption>
+      </figure>
     </div>
-</div>
+  </div>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -138,6 +136,10 @@
     </main>
 </body>
 </html>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="js/vue.js"></script>
+<script src="js/images.js"></script>
 
 </body>
 </html>
