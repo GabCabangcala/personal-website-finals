@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<template>
+    <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -254,3 +255,7 @@
 
 
 </html>
+</template>
+
+<script></script>
+<style></style>
