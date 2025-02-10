@@ -27,8 +27,8 @@ const comment = ref('');
 const submissionStatus = ref(null);
 
 // Your Supabase URL and Key - IMPORTANT!
-const supabaseUrl = 'https://hpqjdrwbeibeyuqdnozp.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhwcWpkcndiZWliZXl1cWRub3pwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzgyMTgzOTAsImV4cCI6MjA1Mzc5NDM5MH0.vu7U3TwOxnYz3tXbrmeSFAKWLI8FdqZ9hgf9LT6aPlw';
+const supabaseUrl = 'https://jetljrxscgdjyybofqqs.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpldGxqcnhzY2dkanl5Ym9mcXFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg1NTIwMTQsImV4cCI6MjA1NDEyODAxNH0.ppZakANQuMsovBiJf-Tzbq_B-XlVmC6QS9oKI_8QCww';
 const tableName = 'comments'; // Name of your Supabase table
 
 const supabase = createClient(supabaseUrl, supabaseKey);
