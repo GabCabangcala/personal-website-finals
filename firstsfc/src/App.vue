@@ -1,5 +1,5 @@
 <template>
-  <personal-profile/>
+  <nav/>
   <h1>Food</h1>
   <country/>
   <hero/>
