@@ -4,7 +4,7 @@
       <h2 class="section-title">About Me</h2>
       <div class="about-grid">
         <div class="about-image" data-aos="zoom-in" data-aos-anchor-placement="top-bottom">
-          <img src="" alt="Gab's Profile Photo">
+          <img src="path/to/your/image.jpg" alt="Gab's Profile Photo">
         </div>
         <div class="about-content" data-aos="fade-left" data-aos-anchor-placement="top-bottom">
           <p>Hello! I'm Gab, a sophomore at Asia Pacific College with a passion for technology and creative design. I'm constantly exploring new ways to blend aesthetics with functionality.</p>
@@ -17,7 +17,13 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
+onMounted(() => {
+  AOS.init();
+});
 </script>
 
 <style scoped>
@@ -47,13 +53,5 @@
     line-height: 1.47059;
     margin-bottom: 24px;
     color: var(--text-primary);
-}
-
-#app > div {
-  border: dashed black 1px;
-  display: inline-block;
-  margin: 10px;
-  padding: 10px;
-  background-color: lightyellow;
 }
 </style>
