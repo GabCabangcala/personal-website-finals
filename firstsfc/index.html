@@ -1,18 +1,280 @@
 <!DOCTYPE html>
-<html lang="">
-  <head>
-    <meta charset="UTF-8">
-    <link rel="icon" href="/favicon.ico">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vite App</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Gab | Portfolio</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+        <script src="script.js" defer></script>
+    </head>
+    
+<body>
+    <!-- Navigation Bar -->
+    <div class="nav-wrapper" data-aos="fade-down" data-aos-anchor-placement="top-bottom">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="nav-brand">Gab.</a>
+                <button class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="#skills" class="nav-link">Skills</a></li>
+                    <li class="nav-item"><a href="#activities" class="nav-link">Activities</a></li>
+                    <li class="nav-item"><a href="#gallery" class="nav-link">Gallery</a></li>
+                    <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero animate__animated animate__fadeIn" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+        <div class="container">
+            <h1 class="hero-title">Hello, I'm Gab.</h1>
+            <p class="hero-subtitle">A sophomore at Asia Pacific College exploring technology and design.</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section" data-aos="fade-right" data-aos-anchor-placement="top-bottom">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-grid">
+                <div class="about-image" data-aos="zoom-in" data-aos-anchor-placement="top-bottom">
+                    <img src="Images/profile.jpg" alt="Gab's Profile Photo">
+                </div>
+                <div class="about-content" data-aos="fade-left" data-aos-anchor-placement="top-bottom">
+                    <p>Hello! I'm Gab, a sophomore at Asia Pacific College with a passion for technology and creative design. I'm constantly exploring new ways to blend aesthetics with functionality.</p>
+                    <p>I believe that great design should be both beautiful and intuitive. Whether I'm coding or creating visuals, I focus on delivering experiences that resonate with people.</p>
+                    <p>My journey in tech is just beginning, but I'm excited about the possibilities ahead and eager to continue learning and growing every day.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MUSIC SECTION -->
+    <section id="music-section" class="music-section" data-aos="fade-right" data-aos-anchor-placement="top-bottom">
+        <div class="container">
+            <h2 class="section-title">My Top 3 tunes</h2>
+            <p class="section-subtitle">Press the Album cover</p>
+            <ul class="cards">
+                <li>
+                    <img src="Images/cover.jpg" width="600" height="600" alt="Album Cover 1">
+                    <audio src="music/chorus1.mp3"></audio>
+                </li>
+                <li>
+                    <img src="Images/cover.jpg" width="600" height="600" alt="Album Cover 2">
+                    <audio src="music/chorus2.mp3"></audio>
+                </li>
+                <li>
+                    <img src="Images/cover.jpg" width="600" height="600" alt="Album Cover 3">
+                    <audio src="music/chorus3.mp3"></audio>
+                </li>
+            </ul>
+        </div>
+    </section>
+    
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills-section" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+        <div class="container">
+            <h2 class="section-title">Skills</h2>
+            <p class="section-subtitle">These are the technologies and tools I've been working with.</p>
+            
+            <div class="skills-grid">
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="100" data-aos-anchor-placement="top-bottom">
+                    <i class="fab fa-python skill-icon"></i>
+                    <h3 class="skill-title">Python</h3>
+                    <div class="skill-progress">
+                        <div class="skill-progress-bar" style="width: 55%"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="200" data-aos-anchor-placement="top-bottom">
+                    <i class="fab fa-java skill-icon"></i>
+                    <h3 class="skill-title">Java</h3>
+                    <div class="skill-progress">
+                        <div class="skill-progress-bar" style="width: 30%"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="300" data-aos-anchor-placement="top-bottom">
+                    <i class="fab fa-figma skill-icon"></i>
+                    <h3 class="skill-title">Figma</h3>
+                    <div class="skill-progress">
+                        <div class="skill-progress-bar" style="width: 50%"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="400" data-aos-anchor-placement="top-bottom">
+                    <i class="fas fa-palette skill-icon"></i>
+                    <h3 class="skill-title">Canva</h3>
+                    <div class="skill-progress">
+                        <div class="skill-progress-bar" style="width: 80%"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="500" data-aos-anchor-placement="top-bottom">
+                    <i class="fab fa-microsoft skill-icon"></i>
+                    <h3 class="skill-title">Microsoft Apps</h3>
+                    <div class="skill-progress">
+                        <div class="skill-progress-bar" style="width: 85%"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="600" data-aos-anchor-placement="top-bottom">
+                    <i class="fab fa-html5 skill-icon"></i>
+                    <h3 class="skill-title">HTML</h3>
+                    <div class="skill-progress">
+                        <div class="skill-progress-bar" style="width: 65%"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="700" data-aos-anchor-placement="top-bottom">
+                    <i class="fab fa-bootstrap skill-icon"></i>
+                    <h3 class="skill-title">Bootstrap</h3>
+                    <div class="skill-progress">
+                        <div class="skill-progress-bar" style="width: 40%"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="800" data-aos-anchor-placement="top-bottom">
+                    <i class="fab fa-css3-alt skill-icon"></i>
+                    <h3 class="skill-title">CSS</h3>
+                    <div class="skill-progress">
+                        <div class="skill-progress-bar" style="width: 60%"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="900" data-aos-anchor-placement="top-bottom">
+                    <i class="fab fa-js-square skill-icon"></i>
+                    <h3 class="skill-title">JavaScript</h3>
+                    <div class="skill-progress">
+                        <div class="skill-progress-bar" style="width: 35%"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="1000" data-aos-anchor-placement="top-bottom">
+                    <i class="fas fa-database skill-icon"></i>
+                    <h3 class="skill-title">MySQL</h3>
+                    <div class="skill-progress">
+                        <div class="skill-progress-bar" style="width: 60%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Activities Section -->
+    <section id="activities" class="activities-section" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+        <div class="container">
+            <h2 class="section-title">Hobbies & Goals</h2>
+            <p class="section-subtitle">What I enjoy doing and what I'm working towards.</p>
+            
+            <div class="activities-grid">
+                <div class="activities-card" data-aos="fade-up" data-aos-delay="100" data-aos-anchor-placement="top-bottom">
+                    <h3>Hobbies & Interests</h3>
+                    <ul class="activities-list">
+                        <li><i class="fas fa-utensils"></i> Cooking Food</li>
+                        <li><i class="fas fa-guitar"></i> Playing Guitar</li>
+                        <li><i class="fas fa-hamburger"></i> Trying Different Foods</li>
+                        <li><i class="fas fa-plane"></i> Traveling</li>
+                    </ul>
+                </div>
+                
+                <div class="activities-card" data-aos="fade-up" data-aos-delay="200" data-aos-anchor-placement="top-bottom">
+                    <h3>Goals In Life/Dreams</h3>
+                    <ul class="activities-list">
+                        <li><i class="fas fa-truck-pickup"></i> Buy my dad's dream Hilux/Ranger</li>
+                        <li><i class="fas fa-briefcase"></i> Have a stable job</li>
+                        <li><i class="fas fa-parachute-box"></i> Learn to skydive</li>
+                        <li><i class="fas fa-globe-asia"></i> Travel to Japan and Korea</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery-section" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+        <div id="app">
+            <photo-gallery></photo-gallery>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+        <div class="container">
+            <h2 class="section-title">Contact Me</h2>
+            <div class="contact-container">
+                <div class="contact-text">
+                    <p>Feel free to reach out for collaboration or inquiries!</p>
+                    <p>(probably wouldn't respond though haha)</p>
+                    
+                    <div class="contact-links">
+                        <a href="mailto:gjcabangcala@student.apc.edu.ph" class="contact-link">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/gabrielle-cabangcala-5a101b290/" class="contact-link" target="_blank">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://github.com/GabCabangcala" class="contact-link" target="_blank">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="contact-form" data-aos="fade-up" data-aos-delay="100" data-aos-anchor-placement="top-bottom">
+                    <form id="feedback-form" onsubmit="showPopup(event)">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" id="name" name="name" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" id="email" name="email" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea id="feedback" name="message" class="form-control" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-block">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+        <div class="container">
+            <p class="footer-text">&copy; 2025 Gcabangcala. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="https://twitter.com" class="footer-link" target="_blank">Twitter</a>
+                <a href="https://facebook.com" class="footer-link" target="_blank">Facebook</a>
+                <a href="https://instagram.com" class="footer-link" target="_blank">Instagram</a>
+            </div>
+        </div>
+    </footer>
+    <script>
+        function showPopup(event) {
+            event.preventDefault();
+            alert('Your message has been sent!');
+        }
+    </script>
+    <script src="vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-  </body>
+    <script src="scroll.js"></script>
+    <script src="scroll-gradient.js"></script>
+    
+</body>
 </html>
