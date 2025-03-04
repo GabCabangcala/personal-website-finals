@@ -1,7 +1,7 @@
 <template>
   <nav/>
   <h1>Food</h1>
-  <country/>
+  <AboutMe/>
   <hero/>
   <food-item/>
   <food-item/>
