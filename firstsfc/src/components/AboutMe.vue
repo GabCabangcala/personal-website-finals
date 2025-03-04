@@ -18,10 +18,9 @@
 
 <script setup>
 import { onMounted } from 'vue';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
 
-onMounted(() => {
+onMounted(async () => {
+  const AOS = await import('aos');
   AOS.init();
 });
 </script>
