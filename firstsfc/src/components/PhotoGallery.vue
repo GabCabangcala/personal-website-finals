@@ -5,17 +5,35 @@
       <p class="section-subtitle">{{ subtitle }}</p>
       
       <div class="gallery-grid">
-        <div class="gallery-item" v-for="(image, index) in images" :key="index" @click="openModal(image)">
-          <img :src="image.src" :alt="image.alt">
+        <div 
+          class="gallery-item" 
+          v-for="(image, index) in images" 
+          :key="index" 
+          @click="openModal(image)"
+        >
+          <div class="image-wrapper">
+            <img :src="image.src" :alt="image.alt">
+            <div class="image-overlay">
+              <span class="zoom-icon">🔍</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <div v-if="isModalOpen" class="modal" @click="closeModal">
-      <span class="close" @click="closeModal">&times;</span>
-      <img class="modal-content" :src="currentImage.src" :alt="currentImage.alt">
-      <div class="caption">{{ currentImage.alt }}</div>
-    </div>
+    <transition name="modal-fade">
+      <div 
+        v-if="isModalOpen" 
+        class="modal" 
+        @click.self="closeModal"
+      >
+        <div class="modal-content">
+          <span class="close" @click="closeModal">&times;</span>
+          <img :src="currentImage.src" :alt="currentImage.alt">
+          <div class="caption">{{ currentImage.alt }}</div>
+        </div>
+      </div>
+    </transition>
   </section>
 </template>
 
@@ -65,9 +83,27 @@ export default {
     openModal(image) {
       this.currentImage = image;
       this.isModalOpen = true;
+      document.body.style.overflow = 'hidden';
     },
     closeModal() {
       this.isModalOpen = false;
+      document.body.style.overflow = 'auto';
+    }
+  },
+  watch: {
+    isModalOpen(newValue) {
+      if (newValue) {
+        window.addEventListener('keydown', this.handleKeyDown);
+      } else {
+        window.removeEventListener('keydown', this.handleKeyDown);
+      }
+    }
+  },
+  methods: {
+    handleKeyDown(event) {
+      if (event.key === 'Escape') {
+        this.closeModal();
+      }
     }
   }
 }
@@ -76,88 +112,136 @@ export default {
 <style scoped>
 .gallery-section {
   padding: 60px 0;
+  background-color: #f4f4f4;
 }
 
 .section-title {
-  font-size: 2rem;
+  font-size: 2.5rem;
   margin-bottom: 20px;
   text-align: center;
+  color: #333;
 }
 
 .section-subtitle {
   font-size: 1.2rem;
   margin-bottom: 40px;
   text-align: center;
+  color: #666;
 }
 
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 25px;
+  padding: 0 15px;
 }
 
-.gallery-item {
-  border-radius: 12px;
+.image-wrapper {
+  position: relative;
+  border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
   transition: transform 0.3s ease;
-  cursor: pointer;
 }
 
-.gallery-item:hover {
-  transform: scale(1.05);
-}
-
-.gallery-item img {
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-}
-
-.modal {
+  background-color: rgba(0, 0, 0, 0);
   display: flex;
   justify-content: center;
   align-items: center;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.zoom-icon {
+  font-size: 2rem;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.image-wrapper:hover {
+  transform: scale(1.05);
+}
+
+.image-wrapper:hover .image-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 1;
+}
+
+.image-wrapper:hover .zoom-icon {
+  opacity: 1;
+}
+
+.modal {
   position: fixed;
   z-index: 1000;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto;
   background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .modal-content {
-  max-width: 80%;
+  position: relative;
+  max-width: 70%;
   max-height: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal-content img {
+  max-width: 100%;
+  max-height: 70vh;
   object-fit: contain;
+  border-radius: 10px;
 }
 
 .close {
   position: absolute;
-  top: 20px;
-  right: 35px;
+  top: -40px;
+  right: 0;
   color: #fff;
   font-size: 40px;
   font-weight: bold;
   cursor: pointer;
+  transition: color 0.3s ease;
 }
 
-.close:hover,
-.close:focus {
+.close:hover {
   color: #bbb;
-  text-decoration: none;
-  cursor: pointer;
 }
 
 .caption {
-  margin: auto;
-  display: block;
-  width: 80%;
-  max-width: 700px;
-  text-align: center;
   color: #ccc;
-  padding: 10px 0;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.modal-fade-enter-from,
+.modal-fade-leave-to {
+  opacity: 0;
 }
 </style>
