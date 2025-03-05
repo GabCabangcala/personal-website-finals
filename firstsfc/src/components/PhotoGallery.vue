@@ -20,38 +20,32 @@
         </div>
       </div>
     </div>
+  </section>
 
+  <teleport to="body">
     <transition name="image-zoom">
       <div 
         v-if="isModalOpen" 
-        class="image-modal" 
+        class="fullscreen-image-modal" 
         @click="closeModal"
       >
-        <div class="image-modal-content">
-          <img 
-            :src="currentImage.src" 
-            :alt="currentImage.alt"
-            @click.stop
-          >
+        <div class="fullscreen-image-container">
+          <button class="close-btn" @click="closeModal">&times;</button>
+          <div class="fullscreen-image-wrapper">
+            <img 
+              :src="currentImage.src" 
+              :alt="currentImage.alt"
+              @click.stop
+            >
+          </div>
           <div class="image-caption">{{ currentImage.alt }}</div>
         </div>
       </div>
     </transition>
-  </section>
+  </teleport>
 </template>
 
 <script>
-import gallery1 from '@/assets/gallery1.jpg'
-import gallery2 from '@/assets/gallery2.jpg'
-import gallery3 from '@/assets/gallery3.jpg'
-import gallery4 from '@/assets/gallery4.jpg'
-import gallery5 from '@/assets/gallery5.jpg'
-import gallery6 from '@/assets/gallery6.jpg'
-import gallery7 from '@/assets/gallery7.jpg'
-import gallery8 from '@/assets/gallery8.jpg'
-import gallery9 from '@/assets/gf2.jpg'
-import gallery10 from '@/assets/carousel2.jpg'
-
 export default {
   name: 'PhotoGallery',
   props: {
@@ -62,22 +56,14 @@ export default {
     subtitle: {
       type: String,
       default: 'A collection of moments and creations.'
+    },
+    images: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
     return {
-      images: [
-        { src: gallery1, alt: 'Gallery Image 1' },
-        { src: gallery2, alt: 'Gallery Image 2' },
-        { src: gallery3, alt: 'Gallery Image 3' },
-        { src: gallery4, alt: 'Gallery Image 4' },
-        { src: gallery5, alt: 'Gallery Image 5' },
-        { src: gallery6, alt: 'Gallery Image 6' },
-        { src: gallery7, alt: 'Gallery Image 7' },
-        { src: gallery8, alt: 'Gallery Image 8' },
-        { src: gallery9, alt: 'Gallery Image 9' },
-        { src: gallery10, alt: 'Gallery Image 10' },
-      ],
       isModalOpen: false,
       currentImage: {}
     };
@@ -134,8 +120,8 @@ export default {
 
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 25px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
   padding: 0 15px;
 }
 
@@ -193,41 +179,62 @@ export default {
   opacity: 1;
 }
 
-.image-modal {
+.fullscreen-image-modal {
   position: fixed;
-  z-index: 1000;
-  left: 0;
   top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(255, 255, 255, 0.95);
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1000;
   padding: 20px;
-  cursor: pointer;
+  box-sizing: border-box;
 }
 
-.image-modal-content {
+.fullscreen-image-container {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 90%;
-  max-height: 90%;
-  transition: all 0.4s ease;
+  width: 100%;
+  max-width: 1200px;
+  max-height: 90vh;
 }
 
-.image-modal-content img {
+.close-btn {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  background: none;
+  border: none;
+  color: #333;
+  font-size: 40px;
+  cursor: pointer;
+  line-height: 1;
+  z-index: 10;
+}
+
+.fullscreen-image-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fullscreen-image-wrapper img {
   max-width: 100%;
-  max-height: 90vh;
+  max-height: 80vh;
   object-fit: contain;
   border-radius: 20px;
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
   transition: transform 0.4s ease;
 }
 
-.image-modal-content img:hover {
+.fullscreen-image-wrapper img:hover {
   transform: scale(1.02);
 }
 
@@ -247,5 +254,41 @@ export default {
 .image-zoom-leave-to {
   opacity: 0;
   transform: scale(0.9);
+}
+
+/* Mobile Responsiveness */
+@media screen and (max-width: 768px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .image-wrapper img {
+    height: 200px;
+  }
+
+  .close-btn {
+    top: -30px;
+    font-size: 30px;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .section-subtitle {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .image-wrapper img {
+    height: 250px;
+  }
 }
 </style>
