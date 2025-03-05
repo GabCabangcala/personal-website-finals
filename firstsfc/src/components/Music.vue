@@ -116,6 +116,7 @@ export default {
       this.playTrack(index);
     },
     startTouchDrag(e) {
+      e.preventDefault(); // Prevent default touch behavior
       this.startDrag(e.touches[0]); // Ensure consistent touch handling
     },
     startDrag(e) {
@@ -153,7 +154,7 @@ export default {
       }
     },
     touchDrag(e) {
-      e.preventDefault();
+      e.preventDefault(); // Prevent default touch behavior
       this.drag(e.touches[0]); // Handle touch-specific dragging
     },
     endDrag() {
@@ -177,7 +178,9 @@ export default {
       if (audio) {
         this.pauseAllAudio();
         audio.volume = 0.2;
-        audio.play();
+        audio.play().catch(error => {
+          console.error("Audio playback failed:", error);
+        });
         this.currentAudio = audio;
       }
     },
@@ -230,4 +233,45 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.music-section {
+  padding: 20px;
+}
+
+.cards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  position: relative;
+  width: 100%;
+  height: 300px; /* Adjust based on your needs */
+}
+
+.cards li {
+  position: absolute;
+  width: 200px; /* Adjust based on your needs */
+  height: 200px; /* Adjust based on your needs */
+  transition: transform 0.5s, opacity 0.5s;
+  cursor: pointer;
+}
+
+.cards img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Add media queries for smaller screens */
+@media (max-width: 768px) {
+  .cards {
+    height: 200px; /* Adjust based on your needs */
+  }
+
+  .cards li {
+    width: 150px; /* Adjust based on your needs */
+    height: 150px; /* Adjust based on your needs */
+  }
+}
+</style>
