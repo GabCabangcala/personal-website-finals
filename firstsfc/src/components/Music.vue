@@ -1,15 +1,22 @@
 <template>
-  <section id="music-section" class="music-section" data-aos="fade-right" data-aos-anchor-placement="top-bottom">
+  <section id="music-section" ref="musicSection" class="music-section" data-aos="fade-right" data-aos-anchor-placement="top-bottom">
     <div class="container">
       <h2 class="section-title">My Top Tunes</h2>
       <p class="section-subtitle">Click Album Covers to Navigate</p>
-      <ul class="cards" ref="cardsContainer">
+      <ul 
+        class="cards" 
+        ref="cardsContainer" 
+        aria-label="Music Playlist"
+        role="list"
+      >
         <li 
           v-for="(track, index) in tracks" 
           :key="index" 
           :class="{ 'active': activeIndex === index }"
           :style="getCardStyle(index)"
           @click="moveToTrack(index)"
+          role="listitem"
+          :aria-selected="activeIndex === index"
         >
           <img 
             :src="track.cover" 
@@ -244,22 +251,34 @@ export default {
 }
 
 .music-section {
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #f9f9f9 0%, #f0f0f0 100%);
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   text-align: center;
   overflow: hidden;
-  margin-bottom: 50px; /* Add margin to separate sections */
-  z-index: 10; /* Ensure it appears above other sections */
-  position: relative; /* Ensure z-index works */
+  margin-bottom: 50px;
+  position: relative;
+}
+
+.music-section::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.05);
+  transform: rotate(-45deg);
+  z-index: 1;
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
-  perspective: 1000px;
+  perspective: 1500px;
+  perspective-origin: center center;
 }
 
 .section-title {
@@ -312,5 +331,34 @@ export default {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   -webkit-box-reflect: below 0.5em linear-gradient(rgb(0 0 0 / 0), rgb(0 0 0 / 0.25));
   pointer-events: none;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .music-section .container {
+    padding: 0 10px;
+  }
+
+  .cards {
+    height: calc(var(--cover-size) * 1.2);
+  }
+
+  .section-title {
+    font-size: 2em;
+  }
+
+  .section-subtitle {
+    font-size: 0.9em;
+  }
+
+  .cards li {
+    --cover-size: 120px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .cards li {
+    --cover-size: 100px;
+  }
 }
 </style>
