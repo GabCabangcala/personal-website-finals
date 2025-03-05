@@ -17,12 +17,15 @@
       </nav>
     </div>
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+      const navMenu = document.querySelector('.nav-menu');
+
+      mobileMenuToggle.addEventListener('click', function () {
+        navMenu.classList.toggle('active');
+      });
+    });
+  </script>
 </template>
-
-<script>
-export default {
-  name: 'Navigation'
-}
-</script>
-
-<style></style>
