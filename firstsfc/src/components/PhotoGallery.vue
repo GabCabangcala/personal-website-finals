@@ -1,88 +1,108 @@
 <template>
-    <section id="gallery" class="gallery-section">
-      <div class="container">
-        <h2 class="section-title">{{ title }}</h2>
-        <p class="section-subtitle">{{ subtitle }}</p>
-        
-        <div class="gallery-grid">
-          <div class="gallery-item" v-for="(image, index) in images" :key="index">
-            <img :src="image.src" :alt="image.alt">
-          </div>
+  <section id="gallery" class="gallery-section">
+    <div class="container">
+      <h2 class="section-title">{{ title }}</h2>
+      <p class="section-subtitle">{{ subtitle }}</p>
+      
+      <div class="gallery-grid">
+        <div class="gallery-item" v-for="(image, index) in images" :key="index">
+          <img :src="image.src" :alt="image.alt">
         </div>
       </div>
-    </section>
-  </template>
-  
-  <script>
-  import gallery1 from '@/assets/gallery1.jpg'
-  import gallery2 from '@/assets/gallery2.jpg'
-  import gallery3 from '@/assets/gallery3.jpg'
-  import gallery4 from '@/assets/gallery4.jpg'
-  import gallery5 from '@/assets/gallery5.jpg'
-  
-  export default {
-    name: 'PhotoGallery',
-    props: {
-      title: {
-        type: String,
-        default: 'Gallery'
-      },
-      subtitle: {
-        type: String,
-        default: 'A collection of moments and creations.'
-      }
+    </div>
+  </section>
+</template>
+
+<script>
+import gallery1 from '@/assets/gallery1.jpg'
+import gallery2 from '@/assets/gallery2.jpg'
+import gallery3 from '@/assets/gallery3.jpg'
+import gallery4 from '@/assets/gallery4.jpg'
+import gallery5 from '@/assets/gallery5.jpg'
+import gallery6 from '@/assets/gallery6.jpg'
+import gallery7 from '@/assets/gallery7.jpg'
+import gallery8 from '@/assets/gallery8.jpg'
+import gallery9 from '@/assets/gf2.jpg'
+import gallery10 from '@/assets/carousel2.jpg'
+import gallery11 from '@/assets/gallery11.jpg'
+import gallery12 from '@/assets/gallery12.jpg'
+import gallery13 from '@/assets/gallery13.jpg'
+import gallery14 from '@/assets/gallery14.jpg'
+import gallery15 from '@/assets/gallery15.jpg'
+
+export default {
+  name: 'PhotoGallery',
+  props: {
+    title: {
+      type: String,
+      default: 'Gallery'
     },
-    data() {
-      return {
-        images: [
-          { src: gallery1, alt: 'Gallery Image 1' },
-          { src: gallery2, alt: 'Gallery Image 2' },
-          { src: gallery3, alt: 'Gallery Image 3' },
-          { src: gallery4, alt: 'Gallery Image 4' },
-          { src: gallery5, alt: 'Gallery Image 5' }
-        ]
-      };
+    subtitle: {
+      type: String,
+      default: 'A collection of moments and creations.'
     }
+  },
+  data() {
+    return {
+      images: [
+        { src: gallery1, alt: 'Gallery Image 1' },
+        { src: gallery2, alt: 'Gallery Image 2' },
+        { src: gallery3, alt: 'Gallery Image 3' },
+        { src: gallery4, alt: 'Gallery Image 4' },
+        { src: gallery5, alt: 'Gallery Image 5' },
+        { src: gallery6, alt: 'Gallery Image 6' },
+        { src: gallery7, alt: 'Gallery Image 7' },
+        { src: gallery8, alt: 'Gallery Image 8' },
+        { src: gallery9, alt: 'Gallery Image 9' },
+        { src: gallery10, alt: 'Gallery Image 10' },
+        { src: gallery11, alt: 'Gallery Image 11' },
+        { src: gallery12, alt: 'Gallery Image 12' },
+        { src: gallery13, alt: 'Gallery Image 13' },
+        { src: gallery14, alt: 'Gallery Image 14' },
+        { src: gallery15, alt: 'Gallery Image 15' }
+      ]
+    };
   }
-  </script>
-  
-  <style scoped>
-  .gallery-section {
-    padding: 60px 0;
-  }
-  
-  .section-title {
-    font-size: 2rem;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  .section-subtitle {
-    font-size: 1.2rem;
-    margin-bottom: 40px;
-    text-align: center;
-  }
-  
-  .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
-  }
-  
-  .gallery-item {
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-  }
-  
-  .gallery-item:hover {
-    transform: scale(1.05);
-  }
-  
-  .gallery-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  </style>
+}
+</script>
+
+<style scoped>
+.gallery-section {
+  padding: 60px 0;
+}
+
+.section-title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.section-subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.gallery-item {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.gallery-item:hover {
+  transform: scale(1.05);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+</style>
