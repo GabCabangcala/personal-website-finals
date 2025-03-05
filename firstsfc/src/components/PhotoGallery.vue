@@ -204,15 +204,15 @@ export default {
 }
 
 .modal-content img {
-  max-width: 80%; /* Reduce the image size */
-  max-height: 80vh; /* Maintain proper aspect ratio */
+  max-width: 70%; /* Reduce the width further */
+  max-height: 70vh; /* Ensure proper scaling */
   object-fit: contain;
-  border-radius: 15px; /* Add rounded corners */
-  box-shadow: none;
-  border: none;
-  transition: transform 0.3s ease; /* Add a smooth animation */
-  transform: scale(0.9); /* Slightly reduce size */
+  border: none; /* Remove any borders */
+  border-radius: 15; /* Remove rounded corners */
+  transition: transform 0.3s ease;
+  transform: scale(0.6); /* Make the image slightly smaller */
 }
+
 
 .close {
   position: absolute; /* Adjust position for accessibility */
