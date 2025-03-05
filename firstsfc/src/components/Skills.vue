@@ -1,4 +1,3 @@
-<!-- filepath: /workspaces/personal-website-finals/firstsfc/src/components/Skills.vue -->
 <template>
   <section id="skills" class="skills-section" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
     <div class="container">
@@ -87,49 +86,77 @@ export default {
 </script>
 
 <style scoped>
+.skills-section {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  overflow: hidden;
+  margin-bottom: 50px; /* Add margin to separate sections */
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.section-title {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.section-subtitle {
+  text-align: center;
+  color: #666;
+  margin-bottom: 30px;
+}
+
 .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 24px;
-    margin-top: 50px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 50px;
 }
 
 .skill-card {
-    background-color: var(--background-primary);
-    border-radius: 12px;
-    padding: 30px;
-    box-shadow: var(--card-shadow);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid var(--border-color);
+  background-color: var(--background-primary);
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid var(--border-color);
 }
 
 .skill-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
 }
 
 .skill-icon {
-    font-size: 36px;
-    color: #4F7C82;
-    margin-bottom: 16px;
+  font-size: 36px;
+  color: #4F7C82;
+  margin-bottom: 16px;
 }
 
 .skill-title {
-    font-size: 17px;
-    font-weight: 600;
-    margin-bottom: 16px;
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 16px;
 }
 
 .skill-progress {
-    height: 6px;
-    background-color: #fcfcff;
-    border-radius: 3px;
-    overflow: hidden;
+  height: 6px;
+  background-color: #fcfcff;
+  border-radius: 3px;
+  overflow: hidden;
 }
 
 .skill-progress-bar {
-    height: 100%;
-    background-color: #9CAF88;
-    border-radius: 3px;
+  height: 100%;
+  background-color: #9CAF88;
+  border-radius: 3px;
 }
 </style>

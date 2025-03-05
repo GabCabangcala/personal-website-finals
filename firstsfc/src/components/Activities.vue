@@ -1,4 +1,3 @@
-<!-- filepath: /workspaces/personal-website-finals/firstsfc/src/components/Activities.vue -->
 <template>
     <section id="activities" class="activities-section" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
       <div class="container">

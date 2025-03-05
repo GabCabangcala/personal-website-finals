@@ -1,4 +1,3 @@
-<!-- filepath: /workspaces/personal-website-finals/firstsfc/src/components/Hero.vue -->
 <template>
     <section id="home" class="hero animate__animated animate__fadeIn" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
       <div class="container">

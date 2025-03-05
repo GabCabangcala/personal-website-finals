@@ -1,4 +1,3 @@
-<!-- filepath: /workspaces/personal-website-finals/firstsfc/src/components/Footer.vue -->
 <template>
     <footer data-aos="fade-up" data-aos-anchor-placement="top-bottom">
       <div class="container">

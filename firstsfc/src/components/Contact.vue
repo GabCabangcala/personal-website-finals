@@ -1,4 +1,3 @@
-<!-- filepath: /workspaces/personal-website-finals/firstsfc/src/components/Contact.vue -->
 <template>
     <section id="contact" class="contact-section" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
       <div class="container">

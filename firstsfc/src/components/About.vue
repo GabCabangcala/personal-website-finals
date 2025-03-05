@@ -1,4 +1,3 @@
-<!-- filepath: /workspaces/personal-website-finals/firstsfc/src/components/About.vue -->
 <template>
   <section id="about" class="about-section">
     <div class="container">

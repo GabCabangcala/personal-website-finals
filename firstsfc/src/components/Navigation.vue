@@ -1,4 +1,3 @@
-<!-- filepath: /workspaces/personal-website-finals/firstsfc/src/components/Navigation.vue -->
 <template>
   <div class="nav-wrapper" data-aos="fade-down" data-aos-anchor-placement="top-bottom">
     <div class="container">
