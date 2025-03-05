@@ -3,12 +3,12 @@
     <div class="container">
       <h2 class="section-title">{{ title }}</h2>
       <p class="section-subtitle">{{ subtitle }}</p>
-
+      
       <div class="gallery-grid">
-        <div
-          class="gallery-item"
-          v-for="(image, index) in images"
-          :key="index"
+        <div 
+          class="gallery-item" 
+          v-for="(image, index) in images" 
+          :key="index" 
           @click="openModal(image)"
         >
           <div class="image-wrapper">
@@ -22,9 +22,9 @@
     </div>
 
     <transition name="modal-fade">
-      <div
-        v-if="isModalOpen"
-        class="modal"
+      <div 
+        v-if="isModalOpen" 
+        class="modal" 
         @click.self="closeModal"
       >
         <div class="modal-content">
@@ -198,19 +198,17 @@ export default {
 
 .modal-content {
   position: relative;
-  max-width: 90%; /* Updated to ensure better scaling */
-  max-height: 90%;
+  max-width: 70%;
+  max-height: 80%;
   display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
   flex-direction: column;
+  align-items: center;
 }
 
 .modal-content img {
-  max-width: 100%; /* Prevents overflowing */
-  max-height: 100%;
-  object-fit: contain; /* Ensures no cropping */
-  margin: auto;
+  max-width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
   border-radius: 10px;
 }
 
