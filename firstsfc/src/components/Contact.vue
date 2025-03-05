@@ -30,7 +30,11 @@
             </div>
             <button type="submit" class="btn btn-block">Send Message</button>
           </form>
-          <div id="messages"></div>
+          <div id="messages">
+            <div v-for="comment in comments" :key="comment.id">
+              <p><strong>{{ comment.name }}:</strong> {{ comment.message }}</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -51,33 +55,42 @@ export default {
   },
   methods: {
     async submitForm() {
-      const { error } = await supabase
-        .from('comments')
-        .insert([
-          { name: this.name, message: this.message }
-        ])
+      try {
+        const { error } = await supabase
+          .from('comments')
+          .insert([
+            { name: this.name, message: this.message }
+          ])
 
-      if (error) {
-        console.error('Error inserting data:', error)
-        alert('There was an error sending your message.')
-      } else {
-        alert('Your message has been sent!')
-        this.name = ''
-        this.message = ''
-        this.loadComments()
+        if (error) {
+          console.error('Error inserting data:', error)
+          alert('There was an error sending your message.')
+        } else {
+          alert('Your message has been sent!')
+          this.name = ''
+          this.message = ''
+          this.loadComments()
+        }
+      } catch (err) {
+        console.error('Unexpected error:', err)
+        alert('There was an unexpected error sending your message.')
       }
     },
     async loadComments() {
-      const { data: comments, error } = await supabase
-        .from('comments')
-        .select('name, message')
+      try {
+        const { data: comments, error } = await supabase
+          .from('comments')
+          .select('name, message')
 
-      if (error) {
-        console.error('Error fetching comments:', error)
-        return
+        if (error) {
+          console.error('Error fetching comments:', error)
+          return
+        }
+
+        this.comments = comments
+      } catch (err) {
+        console.error('Unexpected error:', err)
       }
-
-      this.comments = comments
     }
   },
   mounted() {
