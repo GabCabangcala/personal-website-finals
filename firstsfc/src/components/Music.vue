@@ -180,7 +180,7 @@ export default {
       const audio = this.$refs.audioElements[index];
       if (audio) {
         this.pauseAllAudio();
-        audio.volume = 0.5;
+        audio.volume = 0.2;
         audio.play();
         this.currentAudio = audio;
       }
