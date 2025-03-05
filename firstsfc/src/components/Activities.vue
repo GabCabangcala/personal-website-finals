@@ -1,26 +1,62 @@
 <template>
-  <section id="activities" class="activities-section" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
-    <div class="container">
-      <h2 class="section-title">Hobbies & Goals</h2>
-      <p class="section-subtitle">What I enjoy doing and what I'm working towards.</p>
+  <section class="activities-container">
+    <div class="activities-content">
+      <h2 class="activities-title">Hobbies & Goals</h2>
+      <p class="activities-subtitle">Exploring life, one passion at a time</p>
+      
       <div class="activities-grid">
-        <div class="activities-card" data-aos="fade-up" data-aos-delay="100" data-aos-anchor-placement="top-bottom">
-          <h3>Hobbies & Interests</h3>
-          <ul class="activities-list">
-            <li><i class="fas fa-utensils"></i> Cooking Food</li>
-            <li><i class="fas fa-guitar"></i> Playing Guitar</li>
-            <li><i class="fas fa-hamburger"></i> Trying Different Foods</li>
-            <li><i class="fas fa-plane"></i> Traveling</li>
-          </ul>
+        <div class="activity-column">
+          <div class="activity-card hobbies-card">
+            <div class="card-header">
+              <h3>Hobbies & Interests</h3>
+              <span class="emoji">🌟</span>
+            </div>
+            <ul>
+              <li>
+                <span class="icon">🍳</span>
+                Cooking Food
+              </li>
+              <li>
+                <span class="icon">🎸</span>
+                Playing Guitar
+              </li>
+              <li>
+                <span class="icon">🍽️</span>
+                Trying Different Foods
+              </li>
+              <li>
+                <span class="icon">✈️</span>
+                Traveling
+              </li>
+            </ul>
+          </div>
         </div>
-        <div class="activities-card" data-aos="fade-up" data-aos-delay="200" data-aos-anchor-placement="top-bottom">
-          <h3>Goals In Life/Dreams</h3>
-          <ul class="activities-list">
-            <li><i class="fas fa-truck-pickup"></i> Buy my dad's dream Hilux/Ranger</li>
-            <li><i class="fas fa-briefcase"></i> Have a stable job</li>
-            <li><i class="fas fa-parachute-box"></i> Learn to skydive</li>
-            <li><i class="fas fa-globe-asia"></i> Travel to Japan and Korea</li>
-          </ul>
+        
+        <div class="activity-column">
+          <div class="activity-card goals-card">
+            <div class="card-header">
+              <h3>Goals In Life</h3>
+              <span class="emoji">🚀</span>
+            </div>
+            <ul>
+              <li>
+                <span class="icon">🚗</span>
+                Buy Dad's Dream Truck
+              </li>
+              <li>
+                <span class="icon">💼</span>
+                Secure Stable Career
+              </li>
+              <li>
+                <span class="icon">🪂</span>
+                Learn to Skydive
+              </li>
+              <li>
+                <span class="icon">🌏</span>
+                Travel to Japan & Korea
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -29,51 +65,114 @@
 
 <script>
 export default {
-  name: 'Activities'
+  name: 'ActivitiesSection'
 }
 </script>
 
 <style scoped>
-.activities-section {
-  padding: 60px 0;
+.activities-container {
+  background-color: #f9f9fc;
+  padding: 4rem 1rem;
+  font-family: 'Inter', sans-serif;
 }
 
-.section-title {
+.activities-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.activities-title {
   font-size: 2.5rem;
-  margin-bottom: 20px;
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
 }
 
-.section-subtitle {
-  font-size: 1.25rem;
-  margin-bottom: 40px;
+.activities-subtitle {
+  font-size: 1.125rem;
+  color: #666;
+  margin-bottom: 2.5rem;
+  font-style: italic;
 }
 
 .activities-grid {
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+  justify-content: center;
+  gap: 2rem;
 }
 
-.activities-card {
+.activity-column {
   flex: 1;
-  min-width: 300px;
-  padding: 20px;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
 }
 
-.activities-list {
+.activity-card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.activity-card:hover {
+  transform: translateY(-10px);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 0.75rem;
+}
+
+.card-header h3 {
+  font-size: 1.25rem;
+  color: #333;
+  margin: 0;
+}
+
+.card-header .emoji {
+  font-size: 1.5rem;
+}
+
+.activity-card ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
-.activities-list li {
-  font-size: 1.125rem;
-  margin-bottom: 10px;
+.activity-card li {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  color: #555;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f0f0f0;
 }
 
-.activities-list i {
-  margin-right: 10px;
+.activity-card li:last-child {
+  border-bottom: none;
+}
+
+.activity-card .icon {
+  margin-right: 0.75rem;
+  font-size: 1.25rem;
+}
+
+.hobbies-card {
+  border-top: 4px solid #4a90e2;
+}
+
+.goals-card {
+  border-top: 4px solid #27ae60;
+}
+
+@media (max-width: 768px) {
+  .activities-grid {
+    flex-direction: column;
+  }
 }
 </style>
