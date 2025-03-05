@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import profileImage from '@/assets/Images/prof.jpg'
+import profileImage from '@/assets/prof.jpg'
 
 export default {
   name: 'About',
