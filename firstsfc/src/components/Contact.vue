@@ -64,6 +64,7 @@ export default {
 
         if (error) {
           console.error('Error inserting data:', error)
+          console.error('Supabase response:', error)
           alert('There was an error sending your message.')
         } else {
           console.log('Data inserted:', data)
