@@ -1,3 +1,4 @@
+<!-- filepath: /workspaces/personal-website-finals/firstsfc/src/components/PhotoGallery.vue -->
 <template>
     <section id="gallery" class="gallery-section">
       <div class="container">
