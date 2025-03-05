@@ -74,12 +74,7 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
 }
 
-.container {
-    width: 100%;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
+
 
 section {
     padding: 100px 0;
