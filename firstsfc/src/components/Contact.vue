@@ -251,7 +251,7 @@ export default {
 }
 
 .send-button {
-  background-color: var(--primary-color);
+  background-color: white;
   color: var(--white);
   border: none;
   padding: 12px 20px;
@@ -289,7 +289,7 @@ export default {
 }
 
 .clear-comments-btn {
-  background-color: #ff3b30;
+  background-color: #FF7F7F;
   color: var(--white);
   border: none;
   padding: 8px 15px;
