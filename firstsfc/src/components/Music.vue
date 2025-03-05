@@ -17,7 +17,7 @@
               :alt="track.title" 
               @click.stop="playTrack(index)"
             >
-            <audio :src="track.audio" ref="audioElement"></audio>
+            <audio :src="track.audio" ref="audioElement" :volume="0.5"></audio>
           </li>
         </ul>
       </div>
@@ -60,6 +60,10 @@ export default {
   mounted() {
     this.audioElements = this.$refs.audioElement;
     this.updateCoverflow();
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.handleScroll);
   },
   methods: {
     handleCardClick(index) {
@@ -71,14 +75,25 @@ export default {
       console.log(`Playing track at index: ${index}`);
       // Stop previously playing audio
       if (this.currentAudio) {
-        this.currentAudio.pause();
-        this.currentAudio.currentTime = 0;
+        this.fadeOutAudio(this.currentAudio);
       }
       
       // Play new audio
       const audioElement = this.audioElements[index];
+      audioElement.volume = 0.5; // Set initial volume
       audioElement.play();
       this.currentAudio = audioElement;
+    },
+    fadeOutAudio(audioElement) {
+      const fadeOutInterval = setInterval(() => {
+        if (audioElement.volume > 0.1) {
+          audioElement.volume -= 0.1;
+        } else {
+          audioElement.pause();
+          audioElement.currentTime = 0;
+          clearInterval(fadeOutInterval);
+        }
+      }, 200);
     },
     updateCoverflow() {
       const cards = this.$refs.cardsContainer.children;
@@ -114,6 +129,11 @@ export default {
           card.style.opacity = Math.max(0, 1 - Math.abs(indexDiff) * 0.3);
         }
       });
+    },
+    handleScroll() {
+      if (this.currentAudio) {
+        this.fadeOutAudio(this.currentAudio);
+      }
     }
   }
 }
