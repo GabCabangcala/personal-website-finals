@@ -32,23 +32,23 @@
       return {
         tracks: [
           { 
-            cover: require('../assets/avenged.jpg'), 
-            audio: require('../assets/DearGod.mp3'),
+            cover: require('@/assets/avenged.jpg'), 
+            audio: require('@/assets/DearGod.mp3'),
             title: 'Avenged Sevenfold - Dear God'
           },
           { 
-            cover: require('../assets/LP.jpg'), 
-            audio: require('../assets/WhatI\'veDone.mp3'),
+            cover: require('@/assets/LP.jpg'), 
+            audio: require('@/assets/WhatI\'veDone.mp3'),
             title: 'Linkin Park - What I\'ve Done'
           },
           { 
-            cover: require('../assets/MB.jpg'), 
-            audio: require('../assets/ThatsLife.mp3'),
+            cover: require('@/assets/MB.jpg'), 
+            audio: require('@/assets/ThatsLife.mp3'),
             title: 'Michael Bublé - That\'s Life'
           },
           { 
-            cover: require('../assets/JK.jpg'), 
-            audio: require('../assets/HateYou.mp3'),
+            cover: require('@/assets/JK.jpg'), 
+            audio: require('@/assets/HateYou.mp3'),
             title: 'Jungkook - Hate You'
           }
         ],
