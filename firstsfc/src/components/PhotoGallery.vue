@@ -24,11 +24,6 @@ import gallery7 from '@/assets/gallery7.jpg'
 import gallery8 from '@/assets/gallery8.jpg'
 import gallery9 from '@/assets/gf2.jpg'
 import gallery10 from '@/assets/carousel2.jpg'
-import gallery11 from '@/assets/gallery11.jpg'
-import gallery12 from '@/assets/gallery12.jpg'
-import gallery13 from '@/assets/gallery13.jpg'
-import gallery14 from '@/assets/gallery14.jpg'
-import gallery15 from '@/assets/gallery15.jpg'
 
 export default {
   name: 'PhotoGallery',
@@ -55,11 +50,6 @@ export default {
         { src: gallery8, alt: 'Gallery Image 8' },
         { src: gallery9, alt: 'Gallery Image 9' },
         { src: gallery10, alt: 'Gallery Image 10' },
-        { src: gallery11, alt: 'Gallery Image 11' },
-        { src: gallery12, alt: 'Gallery Image 12' },
-        { src: gallery13, alt: 'Gallery Image 13' },
-        { src: gallery14, alt: 'Gallery Image 14' },
-        { src: gallery15, alt: 'Gallery Image 15' }
       ]
     };
   }
