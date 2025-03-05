@@ -55,5 +55,6 @@ export default {
     backdrop-filter: saturate(180%) blur(20px);
     background-color: rgba(255, 255, 255, 0.7);
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding-left: 20px;
 }
 </style>
