@@ -25,6 +25,9 @@
             <a class="nav-link" href="#about" @click="closeNavbar">About</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="#music-section" @click="closeNavbar">About</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="#skills" @click="closeNavbar">Skills</a>
           </li>
           <li class="nav-item">

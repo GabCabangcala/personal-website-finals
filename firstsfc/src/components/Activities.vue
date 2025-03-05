@@ -1,5 +1,5 @@
 <template>
-  <section class="activities-container">
+  <section id="activities", class="activities-container">
     <div class="activities-content">
       <h2 class="activities-title">Hobbies & Goals</h2>
       <p class="activities-subtitle">Exploring life, one passion at a time</p>
