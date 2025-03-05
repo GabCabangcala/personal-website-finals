@@ -15,13 +15,27 @@
               <img 
                 :src="track.cover" 
                 :alt="track.title" 
-                @click.stop="playTrack(index)"
+                @click.stop="openModal(track, index)"
               >
               <audio :src="track.audio" ref="el => audioElements[index] = el"></audio>
             </li>
           </ul>
         </div>
       </div>
+  
+      <transition name="modal-fade">
+        <div 
+          v-if="isModalOpen" 
+          class="modal" 
+          @click.self="closeModal"
+        >
+          <div class="modal-content">
+            <span class="close" @click="closeModal">&times;</span>
+            <img :src="currentTrack.cover" :alt="currentTrack.title">
+            <div class="caption">{{ currentTrack.title }}</div>
+          </div>
+        </div>
+      </transition>
     </section>
   </template>
   
@@ -32,29 +46,31 @@
       return {
         tracks: [
           { 
-            cover: require('../assets/avenged.jpg'), 
-            audio: require('../assets/DearGod.mp3'),
+            cover: require('src/assets/avenged.jpg'), 
+            audio: require('src/assets/DearGod.mp3'),
             title: 'Avenged Sevenfold - Dear God'
           },
           { 
-            cover: require('../assets/LP.jpg'), 
-            audio: require('../assets/WhatI\'veDone.mp3'),
+            cover: require('src/assets/LP.jpg'), 
+            audio: require('src/assets/WhatI\'veDone.mp3'),
             title: 'Linkin Park - What I\'ve Done'
           },
           { 
-            cover: require('../assets/MB.jpg'), 
-            audio: require('../assets/ThatsLife.mp3'),
+            cover: require('src/assets/MB.jpg'), 
+            audio: require('src/assets/ThatsLife.mp3'),
             title: 'Michael Bublé - That\'s Life'
           },
           { 
-            cover: require('../assets/JK.jpg'), 
-            audio: require('../assets/HateYou.mp3'),
+            cover: require('src/assets/JK.jpg'), 
+            audio: require('src/assets/HateYou.mp3'),
             title: 'Jungkook - Hate You'
           }
         ],
         activeIndex: 0,
         currentAudio: null,
-        audioElements: []
+        audioElements: [],
+        isModalOpen: false,
+        currentTrack: {}
       }
     },
     mounted() {
@@ -113,6 +129,30 @@
             card.style.opacity = Math.max(0, 1 - Math.abs(indexDiff) * 0.3);
           }
         });
+      },
+      openModal(track, index) {
+        this.currentTrack = track;
+        this.isModalOpen = true;
+        document.body.style.overflow = 'hidden';
+        this.playTrack(index);
+      },
+      closeModal() {
+        this.isModalOpen = false;
+        document.body.style.overflow = 'auto';
+      },
+      handleKeyDown(event) {
+        if (event.key === 'Escape') {
+          this.closeModal();
+        }
+      }
+    },
+    watch: {
+      isModalOpen(newValue) {
+        if (newValue) {
+          window.addEventListener('keydown', this.handleKeyDown);
+        } else {
+          window.removeEventListener('keydown', this.handleKeyDown);
+        }
       }
     }
   }
@@ -172,5 +212,70 @@
     text-align: center;
     color: #666;
     margin-bottom: 30px;
+  }
+  
+  .modal {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    position: relative;
+    max-width: 70%;
+    max-height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .modal-content img {
+    max-width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+    border-radius: 10px;
+  }
+  
+  .close {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+  }
+  
+  .modal-fade-enter-active,
+  .modal-fade-leave-active {
+    transition: opacity 0.3s ease;
+  }
+  .modal-fade-enter-from,
+  .modal-fade-leave-to {
+    opacity: 0;
   }
   </style>
