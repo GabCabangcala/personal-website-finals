@@ -5,10 +5,16 @@
       <p class="section-subtitle">{{ subtitle }}</p>
       
       <div class="gallery-grid">
-        <div class="gallery-item" v-for="(image, index) in images" :key="index">
+        <div class="gallery-item" v-for="(image, index) in images" :key="index" @click="openModal(image)">
           <img :src="image.src" :alt="image.alt">
         </div>
       </div>
+    </div>
+
+    <div v-if="isModalOpen" class="modal" @click="closeModal">
+      <span class="close" @click="closeModal">&times;</span>
+      <img class="modal-content" :src="currentImage.src" :alt="currentImage.alt">
+      <div class="caption">{{ currentImage.alt }}</div>
     </div>
   </section>
 </template>
@@ -50,8 +56,19 @@ export default {
         { src: gallery8, alt: 'Gallery Image 8' },
         { src: gallery9, alt: 'Gallery Image 9' },
         { src: gallery10, alt: 'Gallery Image 10' },
-      ]
+      ],
+      isModalOpen: false,
+      currentImage: {}
     };
+  },
+  methods: {
+    openModal(image) {
+      this.currentImage = image;
+      this.isModalOpen = true;
+    },
+    closeModal() {
+      this.isModalOpen = false;
+    }
   }
 }
 </script>
@@ -84,6 +101,7 @@ export default {
   overflow: hidden;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
+  cursor: pointer;
 }
 
 .gallery-item:hover {
@@ -94,5 +112,51 @@ export default {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 35px;
+  color: #fff;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.caption {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+  text-align: center;
+  color: #ccc;
+  padding: 10px 0;
 }
 </style>
