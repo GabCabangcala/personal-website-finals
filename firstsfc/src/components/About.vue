@@ -4,7 +4,7 @@
       <h2 class="section-title">About Me</h2>
       <div class="about-grid">
         <div class="about-image">
-          <img src="/Images/prof.jpg" alt="Gab's Profile Photo">
+          <img src="src/assets/prof.jpg" alt="Gab's Profile Photo">
         </div>
         <div class="about-content">
           <p>Hello! I'm Gab, a sophomore at Asia Pacific College with a passion for technology and creative design. I'm constantly exploring new ways to blend aesthetics with functionality.</p>
@@ -17,8 +17,15 @@
 </template>
 
 <script>
+import profileImage from '@/assets/Images/prof.jpg'
+
 export default {
-  name: 'About'
+  name: 'About',
+  data() {
+    return {
+      profileImage
+    }
+  }
 }
 </script>
 
