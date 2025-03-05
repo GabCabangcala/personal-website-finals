@@ -49,7 +49,7 @@
           { 
             cover: '/assets/JK.jpg', 
             audio: '/assets/HateYou.mp3',
-            title: 'Justin Kauflin - Hate You'
+            title: 'Jungkook - Hate You'
           }
         ],
         activeIndex: 0,
@@ -119,6 +119,7 @@
         }
       },
       playTrack(index) {
+        console.log(`Playing track at index: ${index}`);
         // Stop previously playing audio
         if (this.currentAudio) {
           this.currentAudio.pause();
