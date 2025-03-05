@@ -115,6 +115,14 @@ section {
 .nav-menu {
     display: flex;
     list-style: none;
+    transition: max-height 0.3s ease; /* Smooth transition */
+    overflow: hidden; /* Ensure hidden content doesn't show */
+    max-height: 0; /* Initially collapsed for small screens */
+    flex-direction: column; /* Stack items on small screens */
+}
+
+.nav-menu.active {
+    max-height: 500px; /* Space for menu items when expanded */
 }
 
 .nav-item {
@@ -146,6 +154,26 @@ section {
     font-size: 24px;
     color: var(--text-primary);
 }
+
+@media (max-width: 768px) {
+    .nav-menu {
+        flex-direction: column; /* Stack items on small screens */
+    }
+
+    .nav-item {
+        margin-left: 0; /* Adjust spacing for stacked items */
+        margin-bottom: 10px;
+    }
+
+    .mobile-menu-toggle {
+        display: block; /* Show toggle button on small screens */
+    }
+
+    .nav-menu.active {
+        max-height: 500px; /* Allow menu to expand when toggled */
+    }
+}
+
 
 /* HERO SECTION */
 .hero {
