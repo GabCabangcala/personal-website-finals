@@ -1,40 +1,37 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light nav-wrapper">
-    <div class="container-fluid">
+    <div class="container-fluid justify-content-center"> <!-- Center content -->
       <a class="navbar-brand" href="#">Gab</a>
       <button
         class="navbar-toggler"
         type="button"
-        @click="toggleNavbar"
-        :aria-expanded="isNavbarOpen"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
         aria-controls="navbarNav"
+        aria-expanded="false"
         aria-label="Toggle navigation"
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div 
-        class="collapse navbar-collapse" 
-        :class="{ 'show': isNavbarOpen }"
-        id="navbarNav"
-      >
-        <ul class="navbar-nav ms-auto">
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto"> <!-- Ensure alignment to the right -->
           <li class="nav-item">
-            <a class="nav-link" href="#home" @click="closeNavbar">Home</a>
+            <a class="nav-link active" aria-current="page" href="#home">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#about" @click="closeNavbar">About</a>
+            <a class="nav-link" href="#about">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#skills" @click="closeNavbar">Skills</a>
+            <a class="nav-link" href="#skills">Skills</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#activities" @click="closeNavbar">Activities</a>
+            <a class="nav-link" href="#activities">Activities</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#gallery" @click="closeNavbar">Gallery</a>
+            <a class="nav-link" href="#gallery">Gallery</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#contact" @click="closeNavbar">Contact</a>
+            <a class="nav-link" href="#contact">Contact</a>
           </li>
         </ul>
       </div>
@@ -45,20 +42,7 @@
 <script>
 export default {
   name: 'Navbar',
-  data() {
-    return {
-      isNavbarOpen: false
-    }
-  },
-  methods: {
-    toggleNavbar() {
-      this.isNavbarOpen = !this.isNavbarOpen
-    },
-    closeNavbar() {
-      this.isNavbarOpen = false
-    }
-  }
-}
+};
 </script>
 
 <style>
@@ -67,52 +51,28 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000;
+  z-index: 9999;
   backdrop-filter: saturate(180%) blur(20px);
   background-color: rgba(255, 255, 255, 0.7);
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  padding-left: 20px;
 }
 
 .container-fluid {
-  display: flex;
-  align-items: center;
-  justify-content: center; 
-  padding: 0 15px;
+  display: flex; /* Use flexbox for alignment */
+  align-items: center; /* Vertically center content */
+  justify-content: space-between; /* Balance spacing between logo and navbar */
 }
 
 .navbar-brand {
-  margin-right: auto; 
+  margin-right: 15px; /* Optional spacing adjustment */
 }
 
 .navbar-nav {
-  margin-left: auto; 
+  margin-right: 20px; 
 }
 
-@media (max-width: 991px) {
-  .navbar-collapse {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.95);
-    padding: 15px;
-    display: none;
-  }
-
-  .navbar-collapse.show {
-    display: block;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  }
-
-  .navbar-nav {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .nav-item {
-    margin: 10px 0;
-  }
+.navbar-toggler {
+  border: none; 
 }
-
 </style>
