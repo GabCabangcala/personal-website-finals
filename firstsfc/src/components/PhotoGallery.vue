@@ -90,7 +90,76 @@ export default {
     const isModalOpen = ref(false)
 
     const images = [
-      // ...existing code...
+      {
+        id: 1,
+        src: gallery1,
+        alt: 'Gallery Image 1',
+        title: 'Image 1',
+        description: 'Description for image 1'
+      },
+      {
+        id: 2,
+        src: gallery2,
+        alt: 'Gallery Image 2',
+        title: 'Image 2',
+        description: 'Description for image 2'
+      },
+      {
+        id: 3,
+        src: gallery3,
+        alt: 'Gallery Image 3',
+        title: 'Image 3',
+        description: 'Description for image 3'
+      },
+      {
+        id: 4,
+        src: gallery4,
+        alt: 'Gallery Image 4',
+        title: 'Image 4',
+        description: 'Description for image 4'
+      },
+      {
+        id: 5,
+        src: gallery5,
+        alt: 'Gallery Image 5',
+        title: 'Image 5',
+        description: 'Description for image 5'
+      },
+      {
+        id: 6,
+        src: gallery6,
+        alt: 'Gallery Image 6',
+        title: 'Image 6',
+        description: 'Description for image 6'
+      },
+      {
+        id: 7,
+        src: gallery7,
+        alt: 'Gallery Image 7',
+        title: 'Image 7',
+        description: 'Description for image 7'
+      },
+      {
+        id: 8,
+        src: gallery8,
+        alt: 'Gallery Image 8',
+        title: 'Image 8',
+        description: 'Description for image 8'
+      },
+      {
+        id: 9,
+        src: gallery9,
+        alt: 'Gallery Image 9',
+        title: 'Image 9',
+        description: 'Description for image 9'
+      },
+      {
+        id: 10,
+        src: gallery10,
+        alt: 'Gallery Image 10',
+        title: 'Image 10',
+        description: 'Description for image 10'
+      }
     ]
 
     const openModal = (index) => {
@@ -146,8 +215,174 @@ export default {
 </script>
 
 <style scoped>
-.gallery-filters {
-  display: none; /* Hide the filter buttons */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.gallery-section {
+  padding: 40px 0;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.section-subtitle {
+  font-size: 1.25rem;
+  text-align: center;
+  margin-bottom: 40px;
+  color: #666;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 75%; /* 4:3 Aspect Ratio */
+  overflow: hidden;
+}
+
+.image-wrapper img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.image-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gallery-item:hover .image-overlay {
+  opacity: 1;
+}
+
+.fullscreen-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  padding-top: 75%; /* 4:3 Aspect Ratio */
+  overflow: hidden;
+}
+
+.image-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-info {
+  padding: 20px;
+  text-align: center;
+}
+
+.image-info h3 {
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+}
+
+.image-info p {
+  font-size: 1rem;
+  color: #666;
+}
+
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.nav-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.prev {
+  left: 1rem;
+}
+
+.next {
+  right: 1rem;
+}
+
+.close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.close-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
 }
 
 .gallery-fade-move {
@@ -178,35 +413,4 @@ export default {
   transform: translateX(-50px);
   opacity: 0;
 }
-
-.nav-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  padding: 1rem;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.nav-btn:hover {
-  background: rgba(0, 0, 0, 0.8);
-}
-
-.prev {
-  left: 1rem;
-}
-
-.next {
-  right: 1rem;
-}
-
-.featured {
-  grid-column: span 2;
-  grid-row: span 2;
-}
-
-/* Maintain existing styles and update as needed */
 </style>
