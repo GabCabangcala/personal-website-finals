@@ -40,7 +40,7 @@ export default {
     
     cards.forEach((card, index) => {
         card.setAttribute('data-index', index);
-        card.addEventListener('click', (e) => {
+        card.addEventListener('click', () => {
             if (!isDragging) { // Only switch if not dragging
                 activeIndex = index;
                 updateCoverflow();
