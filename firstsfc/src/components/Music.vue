@@ -21,7 +21,6 @@
           <img
             :src="track.cover"
             :alt="track.title"
-            @click.stop="playTrack(index)"
             draggable="false"
           >
           <audio :src="track.audio" ref="audioElements"></audio>

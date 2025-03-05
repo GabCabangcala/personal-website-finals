@@ -95,70 +95,70 @@ export default {
         src: gallery1,
         alt: 'Gallery Image 1',
         title: 'Image 1',
-        description: 'Description for image 1'
+        description: 'mi n my gi ef'
       },
       {
         id: 2,
         src: gallery2,
         alt: 'Gallery Image 2',
         title: 'Image 2',
-        description: 'Description for image 2'
+        description: 'mi catoe'
       },
       {
         id: 3,
         src: gallery3,
         alt: 'Gallery Image 3',
         title: 'Image 3',
-        description: 'Description for image 3'
+        description: 'Zambs'
       },
       {
         id: 4,
         src: gallery4,
         alt: 'Gallery Image 4',
         title: 'Image 4',
-        description: 'Description for image 4'
+        description: 'sargo par'
       },
       {
         id: 5,
         src: gallery5,
         alt: 'Gallery Image 5',
         title: 'Image 5',
-        description: 'Description for image 5'
+        description: 'truepa'
       },
       {
         id: 6,
         src: gallery6,
         alt: 'Gallery Image 6',
         title: 'Image 6',
-        description: 'Description for image 6'
+        description: 'truepa2'
       },
       {
         id: 7,
         src: gallery7,
         alt: 'Gallery Image 7',
         title: 'Image 7',
-        description: 'Description for image 7'
+        description: 'bblabs'
       },
       {
         id: 8,
         src: gallery8,
         alt: 'Gallery Image 8',
         title: 'Image 8',
-        description: 'Description for image 8'
+        description: 'ride par'
       },
       {
         id: 9,
         src: gallery9,
         alt: 'Gallery Image 9',
         title: 'Image 9',
-        description: 'Description for image 9'
+        description: 'hot---pot'
       },
       {
         id: 10,
         src: gallery10,
         alt: 'Gallery Image 10',
         title: 'Image 10',
-        description: 'Description for image 10'
+        description: 'mi familia'
       }
     ]
 
