@@ -1,11 +1,5 @@
 <template>
-  <section 
-    id="music-section" 
-    class="music-section" 
-    data-aos="fade-right" 
-    data-aos-anchor-placement="top-bottom" 
-    ref="musicSection"
-  >
+  <section id="music-section" class="music-section" data-aos="fade-right" data-aos-anchor-placement="top-bottom">
     <div class="container">
       <h2 class="section-title">My Top Tunes</h2>
       <p class="section-subtitle">Click Album Covers to Navigate</p>
@@ -16,7 +10,7 @@
             :key="index" 
             :class="{ 'active': activeIndex === index }"
             :style="getCardStyle(index)"
-            @click="handleCardClick(index)"
+            @click="moveToTrack(index)"
           >
             <img 
               :src="track.cover" 
@@ -59,40 +53,21 @@ export default {
         }
       ],
       activeIndex: 0,
-      currentAudio: null,
-      observer: null
-    }
-  },
-  mounted() {
-    // Create Intersection Observer to detect when section is out of view
-    this.observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (!entry.isIntersecting) {
-            this.fadeOutAudio();
-          }
-        });
-      },
-      {
-        threshold: 0.1 // Trigger when less than 10% of section is visible
-      }
-    );
-
-    // Start observing the music section
-    if (this.$refs.musicSection) {
-      this.observer.observe(this.$refs.musicSection);
-    }
-  },
-  beforeUnmount() {
-    // Clean up the observer
-    if (this.observer) {
-      this.observer.disconnect();
+      currentAudio: null
     }
   },
   methods: {
+    moveToTrack(index) {
+      // Calculate the direction to move
+      const direction = index - this.activeIndex;
+      
+      // Update the active index
+      this.activeIndex = index;
+    },
     getCardStyle(index) {
       const indexDiff = index - this.activeIndex;
       
+      // Styling for the active card
       if (index === this.activeIndex) {
         return {
           transform: 'translateX(-50%) translateZ(50px) scale(1.2)',
@@ -101,10 +76,11 @@ export default {
         };
       }
       
+      // Styling for cards to the left of active card
       if (index < this.activeIndex) {
         return {
           transform: `
-            translateX(calc(-50% - ${Math.abs(indexDiff) * 100}px)) 
+            translateX(calc(-50% - ${Math.abs(indexDiff) * 150}px)) 
             rotateY(40deg) 
             scale(0.8)
           `,
@@ -113,19 +89,16 @@ export default {
         };
       }
       
+      // Styling for cards to the right of active card
       return {
         transform: `
-          translateX(calc(-50% + ${Math.abs(indexDiff) * 100}px)) 
+          translateX(calc(-50% + ${Math.abs(indexDiff) * 150}px)) 
           rotateY(-40deg) 
           scale(0.8)
         `,
         opacity: Math.max(0, 1 - Math.abs(indexDiff) * 0.3),
         zIndex: 1
       };
-    },
-    handleCardClick(index) {
-      // Only change active index when the card is clicked
-      this.activeIndex = index;
     },
     playTrack(index) {
       // Stop previously playing audio
@@ -139,20 +112,6 @@ export default {
       audioElement.volume = 0.3;
       audioElement.play();
       this.currentAudio = audioElement;
-    },
-    fadeOutAudio() {
-      if (this.currentAudio) {
-        const fadeOutInterval = setInterval(() => {
-          if (this.currentAudio.volume > 0.1) {
-            this.currentAudio.volume -= 0.1;
-          } else {
-            this.currentAudio.pause();
-            this.currentAudio.currentTime = 0;
-            this.currentAudio.volume = 0.3; // Reset volume
-            clearInterval(fadeOutInterval);
-          }
-        }, 100);
-      }
     }
   }
 }
