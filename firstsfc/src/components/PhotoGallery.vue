@@ -43,28 +43,42 @@
   </script>
   
   <style scoped>
-.gallery-grid {
+  .gallery-section {
+    padding: 60px 0;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .section-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+  
+  .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
-}
-
-.gallery-item {
+  }
+  
+  .gallery-item {
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: var(--card-shadow);
-    aspect-ratio: 4/3;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
-}
-
-.gallery-item:hover {
-    transform: scale(1.02);
-}
-
-.gallery-item img {
+  }
+  
+  .gallery-item:hover {
+    transform: scale(1.05);
+  }
+  
+  .gallery-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-}
-</style>
-  
+  }
+  </style>
