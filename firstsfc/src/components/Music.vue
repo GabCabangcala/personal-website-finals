@@ -1,25 +1,32 @@
 <template>
-  <section id="music-section" class="music-section" data-aos="fade-right" data-aos-anchor-placement="top-bottom">
+  <section 
+    id="music-section" 
+    class="music-section" 
+    data-aos="fade-right" 
+    data-aos-anchor-placement="top-bottom" 
+    ref="musicSection"
+  >
     <div class="container">
       <h2 class="section-title">My Top Tunes</h2>
       <p class="section-subtitle">Click Album Covers to Navigate</p>
       <div class="cards-container">
+        <button @click="handleCardClick('left')" class="arrow left-arrow">‹</button>
         <ul class="cards" ref="cardsContainer">
           <li 
             v-for="(track, index) in tracks" 
             :key="index" 
             :class="{ 'active': activeIndex === index }"
             :style="getCardStyle(index)"
-            @click="moveToTrack(index)"
+            @click="playTrack(index)"
           >
             <img 
               :src="track.cover" 
-              :alt="track.title" 
-              @click.stop="playTrack(index)"
+              :alt="track.title"
             >
             <audio :src="track.audio" ref="audioElements"></audio>
           </li>
         </ul>
+        <button @click="handleCardClick('right')" class="arrow right-arrow">›</button>
       </div>
     </div>
   </section>
@@ -53,21 +60,40 @@ export default {
         }
       ],
       activeIndex: 0,
-      currentAudio: null
+      currentAudio: null,
+      observer: null
+    }
+  },
+  mounted() {
+    // Create Intersection Observer to detect when section is out of view
+    this.observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) {
+            this.fadeOutAudio();
+          }
+        });
+      },
+      {
+        threshold: 0.1 // Trigger when less than 10% of section is visible
+      }
+    );
+
+    // Start observing the music section
+    if (this.$refs.musicSection) {
+      this.observer.observe(this.$refs.musicSection);
+    }
+  },
+  beforeUnmount() {
+    // Clean up the observer
+    if (this.observer) {
+      this.observer.disconnect();
     }
   },
   methods: {
-    moveToTrack(index) {
-      // Calculate the direction to move
-      const direction = index - this.activeIndex;
-      
-      // Update the active index
-      this.activeIndex = index;
-    },
     getCardStyle(index) {
       const indexDiff = index - this.activeIndex;
       
-      // Styling for the active card
       if (index === this.activeIndex) {
         return {
           transform: 'translateX(-50%) translateZ(50px) scale(1.2)',
@@ -76,11 +102,10 @@ export default {
         };
       }
       
-      // Styling for cards to the left of active card
       if (index < this.activeIndex) {
         return {
           transform: `
-            translateX(calc(-50% - ${Math.abs(indexDiff) * 150}px)) 
+            translateX(calc(-50% - ${Math.abs(indexDiff) * 100}px)) 
             rotateY(40deg) 
             scale(0.8)
           `,
@@ -89,16 +114,22 @@ export default {
         };
       }
       
-      // Styling for cards to the right of active card
       return {
         transform: `
-          translateX(calc(-50% + ${Math.abs(indexDiff) * 150}px)) 
+          translateX(calc(-50% + ${Math.abs(indexDiff) * 100}px)) 
           rotateY(-40deg) 
           scale(0.8)
         `,
         opacity: Math.max(0, 1 - Math.abs(indexDiff) * 0.3),
         zIndex: 1
       };
+    },
+    handleCardClick(direction) {
+      if (direction === 'left' && this.activeIndex > 0) {
+        this.activeIndex--;
+      } else if (direction === 'right' && this.activeIndex < this.tracks.length - 1) {
+        this.activeIndex++;
+      }
     },
     playTrack(index) {
       // Stop previously playing audio
@@ -112,6 +143,20 @@ export default {
       audioElement.volume = 0.3;
       audioElement.play();
       this.currentAudio = audioElement;
+    },
+    fadeOutAudio() {
+      if (this.currentAudio) {
+        const fadeOutInterval = setInterval(() => {
+          if (this.currentAudio.volume > 0.1) {
+            this.currentAudio.volume -= 0.1;
+          } else {
+            this.currentAudio.pause();
+            this.currentAudio.currentTime = 0;
+            this.currentAudio.volume = 0.3; // Reset volume
+            clearInterval(fadeOutInterval);
+          }
+        }, 100);
+      }
     }
   }
 }
@@ -171,5 +216,25 @@ export default {
   text-align: center;
   color: #666;
   margin-bottom: 30px;
+}
+
+.arrow {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  user-select: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+}
+
+.left-arrow {
+  left: 10px;
+}
+
+.right-arrow {
+  right: 10px;
 }
 </style>
