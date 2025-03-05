@@ -1,4 +1,3 @@
-<!-- filepath: /workspaces/personal-website-finals/firstsfc/src/components/PhotoGallery.vue -->
 <template>
     <section id="gallery" class="gallery-section">
       <div class="container">
@@ -20,7 +19,6 @@
   import gallery3 from '@/assets/gallery3.jpg'
   import gallery4 from '@/assets/gallery4.jpg'
   import gallery5 from '@/assets/gallery5.jpg'
-  import gallery6 from '@/assets/gallery6.jpg'
   
   export default {
     name: 'PhotoGallery',
@@ -41,8 +39,7 @@
           { src: gallery2, alt: 'Gallery Image 2' },
           { src: gallery3, alt: 'Gallery Image 3' },
           { src: gallery4, alt: 'Gallery Image 4' },
-          { src: gallery5, alt: 'Gallery Image 5' },
-          { src: gallery6, alt: 'Gallery Image 6' }
+          { src: gallery5, alt: 'Gallery Image 5' }
         ]
       };
     }
