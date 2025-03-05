@@ -88,6 +88,11 @@ export default {
     closeModal() {
       this.isModalOpen = false;
       document.body.style.overflow = 'auto';
+    },
+    handleKeyDown(event) {
+      if (event.key === 'Escape') {
+        this.closeModal();
+      }
     }
   },
   watch: {
@@ -96,13 +101,6 @@ export default {
         window.addEventListener('keydown', this.handleKeyDown);
       } else {
         window.removeEventListener('keydown', this.handleKeyDown);
-      }
-    }
-  },
-  methods: {
-    handleKeyDown(event) {
-      if (event.key === 'Escape') {
-        this.closeModal();
       }
     }
   }
