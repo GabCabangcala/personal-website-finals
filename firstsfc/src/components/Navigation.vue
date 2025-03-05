@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light nav-wrapper">
-    <div class="container-fluid">
+    <div class="container-fluid justify-content-center"> <!-- Center content -->
       <a class="navbar-brand" href="#">Gab</a>
       <button
         class="navbar-toggler"
@@ -56,6 +56,16 @@ export default {
   background-color: rgba(255, 255, 255, 0.7);
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   padding-left: 20px;
+}
+
+.container-fluid {
+  display: flex; /* Use flexbox for alignment */
+  align-items: center; /* Vertically center content */
+  justify-content: space-between; /* Balance spacing between logo and navbar */
+}
+
+.navbar-brand {
+  margin-right: 15px; /* Optional spacing adjustment */
 }
 
 .navbar-nav {
