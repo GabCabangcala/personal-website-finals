@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     async submitForm() {
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from('comments')
         .insert([
           { name: this.name, message: this.message }
