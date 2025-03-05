@@ -6,16 +6,16 @@
       <p class="section-subtitle">Press the Album cover</p>
       <ul class="cards">
         <li>
-          <img src="Images/cover.jpg" width="600" height="600" alt="Album Cover 1">
-          <audio src="music/chorus1.mp3"></audio>
+          <img src="" width="600" height="600" alt="Album Cover 1">
+          <audio src=""></audio>
         </li>
         <li>
-          <img src="Images/cover.jpg" width="600" height="600" alt="Album Cover 2">
-          <audio src="music/chorus2.mp3"></audio>
+          <img src="" width="600" height="600" alt="Album Cover 2">
+          <audio src=""></audio>
         </li>
         <li>
-          <img src="Images/cover.jpg" width="600" height="600" alt="Album Cover 3">
-          <audio src="music/chorus3.mp3"></audio>
+          <img src="" width="600" height="600" alt="Album Cover 3">
+          <audio src=""></audio>
         </li>
       </ul>
     </div>
