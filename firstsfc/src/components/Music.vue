@@ -8,8 +8,6 @@
         ref="cardsContainer"
         aria-label="Music Playlist"
         role="list"
-        @mousedown.prevent="startDrag"
-        @touchstart.prevent="startTouchDrag"
       >
         <li
           v-for="(track, index) in tracks"
@@ -62,11 +60,9 @@ export default {
       ],
       activeIndex: 0,
       currentAudio: null,
-      isDragging: false,
-      startX: 0,
-      currentX: 0,
-      initialOffset: 0,
-      dragThreshold: 20, // Adjusted for mobile sensitivity
+      touchStartX: 0,
+      touchEndX: 0,
+      minSwipeDistance: 50, // Minimum distance for a swipe to trigger navigation
       lastClickTime: 0,
       clickDelay: 300,
       rotationAngle: 40,
@@ -115,57 +111,39 @@ export default {
       this.pauseAllAudio();
       this.playTrack(index);
     },
-    startTouchDrag(e) {
-      e.preventDefault(); // Prevent default touch behavior
-      this.startDrag(e.touches[0]); // Ensure consistent touch handling
+    handleTouchStart(e) {
+      this.touchStartX = e.touches[0].clientX;
     },
-    startDrag(e) {
-      if (e.target.tagName === 'IMG' || e.target.tagName === 'AUDIO') return; // Prevent dragging on non-draggable elements
-      if (e.button === 0 || e.touches) {
-        this.isDragging = true;
-        this.startX = e.clientX || e.pageX;
-        this.initialOffset = this.activeIndex;
-        this.$refs.cardsContainer.classList.add('dragging');
-
-        // Add mouse and touch event listeners
-        document.addEventListener('mousemove', this.drag);
-        document.addEventListener('touchmove', this.touchDrag, { passive: false });
-        document.addEventListener('mouseup', this.endDrag);
-        document.addEventListener('touchend', this.endDrag);
-      }
+    handleTouchMove(e) {
+      // Prevent default to stop scrolling while swiping
+      e.preventDefault();
     },
-    drag(e) {
-      if (!this.isDragging) return;
-      const touch = e.touches ? e.touches[0] : e;
-      this.currentX = touch.clientX || touch.pageX;
-      const diffX = this.currentX - this.startX;
-      const moveBy = Math.floor(diffX / this.dragThreshold);
+    handleTouchEnd(e) {
+      this.touchEndX = e.changedTouches[0].clientX;
+      this.handleSwipe();
+    },
+    handleSwipe() {
+      const swipeDistance = this.touchEndX - this.touchStartX;
 
-      if (moveBy !== 0) {
-        let newIndex = (this.initialOffset - moveBy) % this.tracks.length;
-        if (newIndex < 0) newIndex = this.tracks.length + newIndex;
-
-        if (newIndex !== this.activeIndex) {
-          this.activeIndex = newIndex;
-          this.startX = this.currentX;
-          this.pauseAllAudio();
-          this.playTrack(this.activeIndex);
+      if (Math.abs(swipeDistance) > this.minSwipeDistance) {
+        if (swipeDistance > 0) {
+          // Swipe right
+          this.navigatePrevious();
+        } else {
+          // Swipe left
+          this.navigateNext();
         }
       }
     },
-    touchDrag(e) {
-      e.preventDefault(); // Prevent default touch behavior
-      this.drag(e.touches[0]); // Handle touch-specific dragging
+    navigateNext() {
+      this.activeIndex = (this.activeIndex + 1) % this.tracks.length;
+      this.pauseAllAudio();
+      this.playTrack(this.activeIndex);
     },
-    endDrag() {
-      this.isDragging = false;
-      this.$refs.cardsContainer.classList.remove('dragging');
-
-      // Remove event listeners
-      document.removeEventListener('mousemove', this.drag);
-      document.removeEventListener('mouseup', this.endDrag);
-      document.removeEventListener('touchmove', this.touchDrag);
-      document.removeEventListener('touchend', this.endDrag);
+    navigatePrevious() {
+      this.activeIndex = (this.activeIndex - 1 + this.tracks.length) % this.tracks.length;
+      this.pauseAllAudio();
+      this.playTrack(this.activeIndex);
     },
     pauseAllAudio() {
       this.$refs.audioElements.forEach(audio => {
@@ -199,18 +177,19 @@ export default {
     }
   },
   mounted() {
-    this.$refs.cardsContainer.addEventListener('mousedown', this.startDrag);
-    this.$refs.cardsContainer.addEventListener('touchstart', this.startTouchDrag, { passive: false });
+    const musicSection = this.$refs.cardsContainer;
 
+    // Add touch event listeners
+    musicSection.addEventListener('touchstart', this.handleTouchStart, { passive: false });
+    musicSection.addEventListener('touchmove', this.handleTouchMove, { passive: false });
+    musicSection.addEventListener('touchend', this.handleTouchEnd, { passive: false });
+
+    // Keyboard navigation
     document.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowLeft') {
-        this.activeIndex = (this.activeIndex - 1 + this.tracks.length) % this.tracks.length;
-        this.pauseAllAudio();
-        this.playTrack(this.activeIndex);
+        this.navigatePrevious();
       } else if (e.key === 'ArrowRight') {
-        this.activeIndex = (this.activeIndex + 1) % this.tracks.length;
-        this.pauseAllAudio();
-        this.playTrack(this.activeIndex);
+        this.navigateNext();
       }
     });
 
@@ -227,7 +206,7 @@ export default {
 
     // Handle orientation changes
     window.addEventListener('resize', () => {
-      this.isDragging = false; // Reset dragging state on orientation changes
+      // Reset any necessary states
     });
   }
 };
@@ -236,6 +215,8 @@ export default {
 <style scoped>
 .music-section {
   padding: 20px;
+  touch-action: none; /* Prevent default touch scrolling */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 .cards {
@@ -246,13 +227,13 @@ export default {
   transform-style: preserve-3d;
   position: relative;
   width: 100%;
-  height: 300px; /* Adjust based on your needs */
+  height: 300px;
 }
 
 .cards li {
   position: absolute;
-  width: 200px; /* Adjust based on your needs */
-  height: 200px; /* Adjust based on your needs */
+  width: 200px;
+  height: 200px;
   transition: transform 0.5s, opacity 0.5s;
   cursor: pointer;
 }
@@ -263,15 +244,15 @@ export default {
   object-fit: cover;
 }
 
-/* Add media queries for smaller screens */
+/* Media queries for smaller screens */
 @media (max-width: 768px) {
   .cards {
-    height: 200px; /* Adjust based on your needs */
+    height: 200px;
   }
 
   .cards li {
-    width: 150px; /* Adjust based on your needs */
-    height: 150px; /* Adjust based on your needs */
+    width: 150px;
+    height: 150px;
   }
 }
 </style>
