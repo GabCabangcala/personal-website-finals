@@ -75,8 +75,9 @@
 </template>
 
 <script>
-import { ref, computed } from 'vue'
-// Import your images here
+import { ref, computed, onMounted, onUnmounted } from 'vue'
+import gallery1 from '@/assets/gallery1.jpg'
+// Import other images similarly
 
 export default {
   name: 'PhotoGallery',
