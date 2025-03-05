@@ -194,32 +194,39 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0;
 }
 
 .modal-content {
   position: relative;
-  max-width: 70%;
-  max-height: 80%;
+  max-width: 90%;
+  max-height: 90%;
+  width: auto;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: none;
+  padding: 0;
 }
 
 .modal-content img {
   max-width: 100%;
-  max-height: 70vh;
+  max-height: 90vh;
   object-fit: contain;
-  border-radius: 10px;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .close {
   position: absolute;
-  top: 20px;
-  right: 35px;
+  top: -40px;
+  right: 0;
   color: #fff;
   font-size: 40px;
   font-weight: bold;
   cursor: pointer;
+  z-index: 1001;
 }
 
 .close:hover,
@@ -230,13 +237,11 @@ export default {
 }
 
 .caption {
-  margin: auto;
+  margin: 10px 0;
   display: block;
-  width: 80%;
-  max-width: 700px;
   text-align: center;
   color: #ccc;
-  padding: 10px 0;
+  width: 100%;
 }
 
 .modal-fade-enter-active,

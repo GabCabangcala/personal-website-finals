@@ -61,7 +61,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .nav-wrapper {
   position: fixed;
   top: 0;
