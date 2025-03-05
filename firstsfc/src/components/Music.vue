@@ -24,6 +24,7 @@
             :src="track.cover" 
             :alt="track.title" 
             @click.stop="playTrack(index)"
+            draggable="false" 
           >
           <audio :src="track.audio" ref="audioElements"></audio>
         </li>
@@ -65,20 +66,20 @@ export default {
       startX: 0,
       currentX: 0,
       initialOffset: 0,
-      dragThreshold: 50,
+      dragThreshold: 30, // Reduced for better mobile responsiveness
       lastClickTime: 0,
-      clickDelay: 300, // milliseconds to prevent accidental double-clicks
+      clickDelay: 300,
       rotationAngle: 40,
       zDistance: 50,
       coverSize: 200
-    }
+    };
   },
   methods: {
     getCardTransform(index) {
       const indexDiff = index - this.activeIndex;
       const maxDistance = 3;
       const opacity = Math.max(0, 1 - (Math.abs(indexDiff) / maxDistance));
-      
+
       if (index === this.activeIndex) {
         return {
           transform: `translateX(-50%) translateZ(${this.zDistance}px)`,
@@ -115,8 +116,7 @@ export default {
       this.playTrack(index);
     },
     startTouchDrag(e) {
-      e.preventDefault(); // Prevent default touch behavior
-      this.startDrag(e.touches[0]); // Pass first touch to startDrag
+      this.startDrag(e.touches[0]); // Ensure consistent touch handling
     },
     startDrag(e) {
       if (e.target.tagName === 'IMG') return; // Prevent dragging when clicking on images
@@ -153,8 +153,8 @@ export default {
       }
     },
     touchDrag(e) {
-      e.preventDefault(); // Prevent default touch behavior during dragging
-      this.drag(e);
+      e.preventDefault();
+      this.drag(e.touches[0]); // Handle touch-specific dragging
     },
     endDrag() {
       this.isDragging = false;
@@ -176,7 +176,7 @@ export default {
       const audio = this.$refs.audioElements[index];
       if (audio) {
         this.pauseAllAudio();
-        audio.volume = 0.2; // Lowered volume for playback
+        audio.volume = 0.2;
         audio.play();
         this.currentAudio = audio;
       }
@@ -222,7 +222,7 @@ export default {
 
     observer.observe(this.$refs.musicSection);
   }
-}
+};
 </script>
 
 <style></style>
