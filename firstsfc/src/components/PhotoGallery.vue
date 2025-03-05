@@ -129,8 +129,9 @@ export default {
 }
 
 .modal-content {
-  max-width: 90%;
-  max-height: 90%;
+  max-width: 80%;
+  max-height: 80%;
+  object-fit: contain;
 }
 
 .close {
