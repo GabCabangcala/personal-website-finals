@@ -7,7 +7,7 @@
         
         <div class="gallery-grid">
           <div class="gallery-item" v-for="(image, index) in images" :key="index">
-            <img :src="images" :alt="image.alt">
+            <img :src="image.src" :alt="image.alt">
           </div>
         </div>
       </div>
