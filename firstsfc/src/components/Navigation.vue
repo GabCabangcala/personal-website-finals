@@ -1,43 +1,46 @@
 <template>
-  <div class="nav-wrapper" data-aos="fade-down" data-aos-anchor-placement="top-bottom">
-    <div class="container">
-      <nav class="navbar">
-        <a href="#" class="nav-brand">Gab.</a>
-        <button class="mobile-menu-toggle" aria-expanded="false">
-          <i class="fas fa-bars"></i>
-        </button>
-        <ul class="nav-menu">
-          <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
-          <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
-          <li class="nav-item"><a href="#skills" class="nav-link">Skills</a></li>
-          <li class="nav-item"><a href="#activities" class="nav-link">Activities</a></li>
-          <li class="nav-item"><a href="#gallery" class="nav-link">Gallery</a></li>
-          <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Gab</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#skills">Skills</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#activities">Activities</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#gallery">Gallery</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contact">Contact</a>
+          </li>
         </ul>
-      </nav>
+      </div>
     </div>
-  </div>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-      const navMenu = document.querySelector('.nav-menu');
-
-      mobileMenuToggle.addEventListener('click', function () {
-        navMenu.classList.toggle('active');
-        const expanded = navMenu.classList.contains('active');
-        mobileMenuToggle.setAttribute('aria-expanded', expanded);
-      });
-
-      const navLinks = document.querySelectorAll('.nav-link');
-      navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-          navMenu.classList.remove('active');
-          mobileMenuToggle.setAttribute('aria-expanded', false);
-        });
-      });
-    });
-  </script>
+  </nav>
 </template>
 
-<style></style>
+<script>
+export default {
+  name: 'Navbar',
+};
+</script>
