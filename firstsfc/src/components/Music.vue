@@ -2,14 +2,22 @@
   <section id="music-section" class="music-section" data-aos="fade-right" data-aos-anchor-placement="top-bottom">
     <div class="container">
       <h2 class="section-title">My Top Tunes</h2>
-      <p class="section-subtitle">Click Album Covers to Play</p>
-      <div class="cards-container">
-        <ul class="cards" ref="cardsContainer">
+      <p class="section-subtitle">Drag or Click Album Covers</p>
+      <div 
+        class="cards-container" 
+        @mousedown="startDrag" 
+        @touchstart="startDragTouch"
+      >
+        <ul 
+          class="cards" 
+          ref="cardsContainer" 
+          :class="{ 'is-dragging': isDragging }"
+        >
           <li 
             v-for="(track, index) in tracks" 
             :key="index" 
             :class="{ 'active': activeIndex === index }"
-            :data-index="index"
+            :style="getCardStyle(index)"
             @click="handleCardClick(index)"
           >
             <img 
@@ -17,7 +25,7 @@
               :alt="track.title" 
               @click.stop="playTrack(index)"
             >
-            <audio :src="track.audio" ref="audioElement" :volume="0.3"></audio>
+            <audio :src="track.audio" ref="audioElements"></audio>
           </li>
         </ul>
       </div>
@@ -47,93 +55,115 @@ export default {
           title: 'Michael Bublé - That\'s Life'
         },
         { 
-          cover: require('../assets/JK.jpg') , 
+          cover: require('../assets/JK.jpg'), 
           audio: require('../assets/HateYou.mp3'),
           title: 'Jungkook - Hate You'
         }
       ],
       activeIndex: 0,
       currentAudio: null,
-      audioElements: []
+      isDragging: false,
+      startX: 0,
+      currentX: 0,
+      dragThreshold: 50
     }
   },
-  mounted() {
-    this.audioElements = this.$refs.audioElement;
-    this.updateCoverflow();
-    window.addEventListener('scroll', this.handleScroll);
-  },
-  beforeUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
-  },
   methods: {
-    handleCardClick(index) {
-      this.activeIndex = index;
-      this.updateCoverflow();
-      this.playTrack(index);
+    startDragTouch(e) {
+      this.startDrag(e.touches[0]);
     },
-    playTrack(index) {
-      console.log(`Playing track at index: ${index}`);
-      // Stop previously playing audio
-      if (this.currentAudio) {
-        this.fadeOutAudio(this.currentAudio);
+    startDrag(e) {
+      this.isDragging = true;
+      this.startX = e.clientX;
+      
+      window.addEventListener('mousemove', this.onDrag);
+      window.addEventListener('mouseup', this.endDrag);
+      window.addEventListener('touchmove', this.onTouchDrag, { passive: false });
+      window.addEventListener('touchend', this.endDrag);
+    },
+    onTouchDrag(e) {
+      this.onDrag(e.touches[0]);
+    },
+    onDrag(e) {
+      if (!this.isDragging) return;
+      
+      this.currentX = e.clientX;
+      const diffX = this.currentX - this.startX;
+      
+      if (Math.abs(diffX) > this.dragThreshold) {
+        if (diffX > 0) {
+          // Dragged right, move to previous
+          this.activeIndex = (this.activeIndex - 1 + this.tracks.length) % this.tracks.length;
+        } else {
+          // Dragged left, move to next
+          this.activeIndex = (this.activeIndex + 1) % this.tracks.length;
+        }
+        
+        this.startX = this.currentX;
+        this.$nextTick(() => {
+          this.playTrack(this.activeIndex);
+        });
+      }
+    },
+    endDrag() {
+      this.isDragging = false;
+      
+      window.removeEventListener('mousemove', this.onDrag);
+      window.removeEventListener('mouseup', this.endDrag);
+      window.removeEventListener('touchmove', this.onTouchDrag);
+      window.removeEventListener('touchend', this.endDrag);
+    },
+    getCardStyle(index) {
+      const indexDiff = index - this.activeIndex;
+      
+      if (index === this.activeIndex) {
+        return {
+          transform: 'translateX(-50%) translateZ(50px) scale(1.2)',
+          zIndex: 10,
+          opacity: 1
+        };
       }
       
-      // Play new audio
-      const audioElement = this.audioElements[index];
-      audioElement.volume = 0.3; // Set initial volume
-      audioElement.play();
-      this.currentAudio = audioElement;
-    },
-    fadeOutAudio(audioElement) {
-      const fadeOutInterval = setInterval(() => {
-        if (audioElement.volume > 0.1) {
-          audioElement.volume -= 0.1;
-        } else {
-          audioElement.pause();
-          audioElement.currentTime = 0;
-          clearInterval(fadeOutInterval);
-        }
-      }, 200);
-    },
-    updateCoverflow() {
-      const cards = this.$refs.cardsContainer.children;
-      
-      Array.from(cards).forEach((card, index) => {
-        const indexDiff = index - this.activeIndex;
-        
-        // Reset transforms and opacity for all cards
-        card.style.transform = `translateX(-50%) translateZ(0)`;
-        card.style.opacity = '1';
-        card.style.zIndex = '1';
-        
-        // Special handling for active card
-        if (index === this.activeIndex) {
-          card.style.transform = `translateX(-50%) translateZ(50px) scale(1.2)`;
-          card.style.zIndex = '10';
-          card.style.opacity = '1';
-        } else if (index < this.activeIndex) {
-          // Cards to the left
-          card.style.transform = `
+      if (index < this.activeIndex) {
+        return {
+          transform: `
             translateX(calc(-50% - ${Math.abs(indexDiff) * 100}px)) 
             rotateY(40deg) 
             scale(0.8)
-          `;
-          card.style.opacity = Math.max(0, 1 - Math.abs(indexDiff) * 0.3);
-        } else {
-          // Cards to the right
-          card.style.transform = `
-            translateX(calc(-50% + ${Math.abs(indexDiff) * 100}px)) 
-            rotateY(-40deg) 
-            scale(0.8)
-          `;
-          card.style.opacity = Math.max(0, 1 - Math.abs(indexDiff) * 0.3);
-        }
-      });
-    },
-    handleScroll() {
-      if (this.currentAudio) {
-        this.fadeOutAudio(this.currentAudio);
+          `,
+          opacity: Math.max(0, 1 - Math.abs(indexDiff) * 0.3),
+          zIndex: 1
+        };
       }
+      
+      return {
+        transform: `
+          translateX(calc(-50% + ${Math.abs(indexDiff) * 100}px)) 
+          rotateY(-40deg) 
+          scale(0.8)
+        `,
+        opacity: Math.max(0, 1 - Math.abs(indexDiff) * 0.3),
+        zIndex: 1
+      };
+    },
+    handleCardClick(index) {
+      if (!this.isDragging) {
+        this.activeIndex = index;
+        this.playTrack(index);
+      }
+    },
+    playTrack(index) {
+      // Stop previously playing audio
+      if (this.currentAudio) {
+        this.currentAudio.pause();
+        this.currentAudio.currentTime = 0;
+      }
+      
+      // Play new audio
+      const audioElement = this.$refs.audioElements[index];
+      audioElement.volume = 0.3;
+      audioElement.play();
+      this.currentAudio = audioElement;
     }
   }
 }
@@ -152,6 +182,11 @@ export default {
   align-items: center;
   position: relative;
   height: 300px;
+  cursor: grab;
+}
+
+.cards-container.is-dragging {
+  cursor: grabbing;
 }
 
 .cards {
