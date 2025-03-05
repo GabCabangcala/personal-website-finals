@@ -77,19 +77,18 @@ export default {
 .container-fluid {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center; 
   padding: 0 15px;
 }
 
 .navbar-brand {
-  font-weight: bold;
-  color: #333;
+  margin-right: auto; 
 }
 
-.navbar-toggler {
-  border: none;
-  outline: none;
+.navbar-nav {
+  margin-left: auto; 
 }
+
 
 @media (max-width: 991px) {
   .navbar-collapse {
