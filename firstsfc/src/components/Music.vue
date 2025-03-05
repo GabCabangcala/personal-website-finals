@@ -17,7 +17,7 @@
               :alt="track.title" 
               @click.stop="playTrack(index)"
             >
-            <audio :src="track.audio" ref="audioElement" :volume="0.5"></audio>
+            <audio :src="track.audio" ref="audioElement" :volume="0.3"></audio>
           </li>
         </ul>
       </div>
@@ -62,7 +62,7 @@ export default {
     this.updateCoverflow();
     window.addEventListener('scroll', this.handleScroll);
   },
-  beforeDestroy() {
+  beforeUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
   },
   methods: {
@@ -80,7 +80,7 @@ export default {
       
       // Play new audio
       const audioElement = this.audioElements[index];
-      audioElement.volume = 0.5; // Set initial volume
+      audioElement.volume = 0.3; // Set initial volume
       audioElement.play();
       this.currentAudio = audioElement;
     },
