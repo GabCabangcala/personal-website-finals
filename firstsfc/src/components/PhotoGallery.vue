@@ -28,8 +28,14 @@
         @click.self="closeModal"
       >
         <div class="modal-content">
-          <span class="close" @click="closeModal">&times;</span>
-          <img :src="currentImage.src" :alt="currentImage.alt">
+          <button class="close" @click="closeModal" aria-label="Close">
+            &times;
+          </button>
+          <img 
+            :src="currentImage.src" 
+            :alt="currentImage.alt"
+            @click.stop
+          >
           <div class="caption">{{ currentImage.alt }}</div>
         </div>
       </div>
@@ -190,54 +196,55 @@ export default {
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
+  background-color: rgba(0, 0, 0, 0.5); /* More transparent background */
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 0;
 }
 
+.modal-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 90%;
+  max-height: 90%;
+}
+
 .modal-content img {
-  max-width: 80%;
+  max-width: 100%;
   max-height: 80vh;
   object-fit: contain;
-  border: none; /* No borders */
-  border-radius: 0;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  transform: scale(1); /* Default scale */
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Highlight glow */
+  border: none;
+  transition: transform 0.3s ease;
 }
 
 .modal-content img:hover {
-  transform: scale(1.05); /* Slight zoom on hover */
+  transform: scale(1.05);
 }
-
-
 
 .close {
-  position: absolute; /* Adjust position for accessibility */
-  top: 20px; /* Place closer to the modal */
-  right: 20px;
-  color: #fff;
+  position: absolute;
+  top: -40px;
+  right: 0;
+  background: none;
+  border: none;
+  color: white;
   font-size: 40px;
-  font-weight: bold;
   cursor: pointer;
+  padding: 0;
+  line-height: 1;
 }
 
-.close:hover,
-.close:focus {
+.close:hover {
   color: #bbb;
-  text-decoration: none;
-  cursor: pointer;
 }
-
 
 .caption {
-  margin: 10px 0;
-  display: block;
+  margin-top: 10px;
+  color: white;
   text-align: center;
-  color: #ccc;
-  width: 100%;
 }
 
 .modal-fade-enter-active,
