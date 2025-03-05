@@ -9,8 +9,8 @@
 
 <script>
 export default {
-  name: 'HeroSection'
-};
+  name: 'Hero'
+}
 </script>
 
 <style scoped>
@@ -35,6 +35,27 @@ export default {
     letter-spacing: .004em;
     color: var(--text-secondary);
     margin-bottom: 32px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.section-title {
+    font-size: 40px;
+    line-height: 1.1;
+    font-weight: 600;
+    letter-spacing: 0;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.section-subtitle {
+    font-size: 20px;
+    line-height: 1.2;
+    font-weight: 400;
+    color: var(--text-secondary);
+    margin-bottom: 50px;
+    text-align: center;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;

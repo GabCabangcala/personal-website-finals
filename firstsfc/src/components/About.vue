@@ -4,7 +4,7 @@
       <h2 class="section-title">About Me</h2>
       <div class="about-grid">
         <div class="about-image" data-aos="zoom-in" data-aos-anchor-placement="top-bottom">
-          <img src="" alt="Gab's Profile Photo">
+          <img src="Images/profile.jpg" alt="Gab's Profile Photo">
         </div>
         <div class="about-content" data-aos="fade-left" data-aos-anchor-placement="top-bottom">
           <p>Hello! I'm Gab, a sophomore at Asia Pacific College with a passion for technology and creative design. I'm constantly exploring new ways to blend aesthetics with functionality.</p>
@@ -16,41 +16,38 @@
   </section>
 </template>
 
-<script setup>
-import { onMounted } from 'vue';
-
-onMounted(async () => {
-  const AOS = await import('aos');
-  AOS.init();
-});
+<script>
+export default {
+  name: 'About'
+}
 </script>
 
 <style scoped>
 .about-section {
-  background-color: var(--background-secondary);
+    background-color: var(--background-secondary);
 }
 
 .about-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
 }
 
 .about-image {
-  position: relative;
+    position: relative;
 }
 
 .about-image img {
-  width: 100%;
-  border-radius: 12px;
-  box-shadow: var(--card-shadow);
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
 }
 
 .about-content p {
-  font-size: 17px;
-  line-height: 1.47059;
-  margin-bottom: 24px;
-  color: var(--text-primary);
+    font-size: 17px;
+    line-height: 1.47059;
+    margin-bottom: 24px;
+    color: var(--text-primary);
 }
 </style>
