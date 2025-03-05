@@ -105,33 +105,28 @@ export default {
     },
     navigateToTrack(index) {
       const currentTime = new Date().getTime();
-      
-      // Prevent rapid successive clicks
       if (currentTime - this.lastClickTime < this.clickDelay) return;
-      
+
       this.lastClickTime = currentTime;
-      
-      // If clicking the current active track, do nothing
       if (this.activeIndex === index) return;
-      
+
       this.activeIndex = index;
       this.pauseAllAudio();
       this.playTrack(index);
     },
     startTouchDrag(e) {
-      this.startDrag(e.touches[0]);
+      e.preventDefault(); // Prevent default touch behavior
+      this.startDrag(e.touches[0]); // Pass first touch to startDrag
     },
     startDrag(e) {
-      // Prevent dragging when clicking on the image to play
-      if (e.target.tagName === 'IMG') return;
-      
+      if (e.target.tagName === 'IMG') return; // Prevent dragging when clicking on images
       if (e.button === 0 || e.touches) {
         this.isDragging = true;
         this.startX = e.clientX || e.pageX;
         this.initialOffset = this.activeIndex;
         this.$refs.cardsContainer.classList.add('dragging');
-        
-        // Add event listeners
+
+        // Add mouse and touch event listeners
         document.addEventListener('mousemove', this.drag);
         document.addEventListener('touchmove', this.touchDrag, { passive: false });
         document.addEventListener('mouseup', this.endDrag);
@@ -140,14 +135,15 @@ export default {
     },
     drag(e) {
       if (!this.isDragging) return;
-      this.currentX = e.clientX || e.pageX;
+      const touch = e.touches ? e.touches[0] : e;
+      this.currentX = touch.clientX || touch.pageX;
       const diffX = this.currentX - this.startX;
       const moveBy = Math.floor(diffX / this.dragThreshold);
-      
+
       if (moveBy !== 0) {
         let newIndex = (this.initialOffset - moveBy) % this.tracks.length;
         if (newIndex < 0) newIndex = this.tracks.length + newIndex;
-        
+
         if (newIndex !== this.activeIndex) {
           this.activeIndex = newIndex;
           this.startX = this.currentX;
@@ -157,17 +153,17 @@ export default {
       }
     },
     touchDrag(e) {
-      e.preventDefault();
-      this.drag(e.touches[0]);
+      e.preventDefault(); // Prevent default touch behavior during dragging
+      this.drag(e);
     },
     endDrag() {
       this.isDragging = false;
       this.$refs.cardsContainer.classList.remove('dragging');
-      
+
       // Remove event listeners
       document.removeEventListener('mousemove', this.drag);
-      document.removeEventListener('touchmove', this.touchDrag);
       document.removeEventListener('mouseup', this.endDrag);
+      document.removeEventListener('touchmove', this.touchDrag);
       document.removeEventListener('touchend', this.endDrag);
     },
     pauseAllAudio() {
@@ -180,7 +176,7 @@ export default {
       const audio = this.$refs.audioElements[index];
       if (audio) {
         this.pauseAllAudio();
-        audio.volume = 0.2;
+        audio.volume = 0.2; // Lowered volume for playback
         audio.play();
         this.currentAudio = audio;
       }
@@ -200,7 +196,9 @@ export default {
     }
   },
   mounted() {
-    // Keyboard navigation
+    this.$refs.cardsContainer.addEventListener('mousedown', this.startDrag);
+    this.$refs.cardsContainer.addEventListener('touchstart', this.startTouchDrag, { passive: false });
+
     document.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowLeft') {
         this.activeIndex = (this.activeIndex - 1 + this.tracks.length) % this.tracks.length;
@@ -212,8 +210,7 @@ export default {
         this.playTrack(this.activeIndex);
       }
     });
-    
-    // Intersection Observer to fade out audio when section is out of view
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (!entry.isIntersecting && this.currentAudio) {
@@ -222,7 +219,7 @@ export default {
         }
       });
     });
-    
+
     observer.observe(this.$refs.musicSection);
   }
 }
