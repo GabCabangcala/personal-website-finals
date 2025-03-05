@@ -16,14 +16,13 @@
           :key="index"
           :class="{ 'active': activeIndex === index }"
           :style="getCardTransform(index)"
-          @click="navigateToTrack(index)"
+          @click="handleTap(index)"
           role="listitem"
           :aria-selected="activeIndex === index"
         >
           <img
             :src="track.cover"
             :alt="track.title"
-            @click.stop="playTrack(index)"
             draggable="false"
           >
           <audio :src="track.audio" ref="audioElements"></audio>
@@ -63,10 +62,11 @@ export default {
       activeIndex: 0,
       currentAudio: null,
       isDragging: false,
+      isTap: true,
       startX: 0,
       currentX: 0,
       initialOffset: 0,
-      dragThreshold: 20, // Adjusted for mobile sensitivity
+      dragThreshold: 20,
       lastClickTime: 0,
       clickDelay: 300,
       rotationAngle: 40,
@@ -104,6 +104,18 @@ export default {
         };
       }
     },
+    handleTap(index) {
+      if (this.isDragging) {
+        this.isDragging = false; // Ensure it’s not considered a tap after dragging
+        return;
+      }
+
+      if (this.activeIndex === index) {
+        this.playTrack(index); // Play track if the same card is tapped
+      } else {
+        this.navigateToTrack(index); // Navigate to the tapped card
+      }
+    },
     navigateToTrack(index) {
       const currentTime = new Date().getTime();
       if (currentTime - this.lastClickTime < this.clickDelay) return;
@@ -113,20 +125,20 @@ export default {
 
       this.activeIndex = index;
       this.pauseAllAudio();
-      this.playTrack(index);
     },
     startTouchDrag(e) {
-      this.startDrag(e.touches[0]); // Ensure consistent touch handling
+      this.isTap = true; // Assume it’s a tap until dragging is detected
+      this.startDrag(e.touches[0]);
     },
     startDrag(e) {
-      if (e.target.tagName === 'IMG' || e.target.tagName === 'AUDIO') return; // Prevent dragging on non-draggable elements
+      if (e.target.tagName === 'IMG' || e.target.tagName === 'AUDIO') return;
       if (e.button === 0 || e.touches) {
         this.isDragging = true;
+        this.isTap = false; // It's a drag if movement is detected
         this.startX = e.clientX || e.pageX;
         this.initialOffset = this.activeIndex;
         this.$refs.cardsContainer.classList.add('dragging');
 
-        // Add mouse and touch event listeners
         document.addEventListener('mousemove', this.drag);
         document.addEventListener('touchmove', this.touchDrag, { passive: false });
         document.addEventListener('mouseup', this.endDrag);
@@ -138,29 +150,18 @@ export default {
       const touch = e.touches ? e.touches[0] : e;
       this.currentX = touch.clientX || touch.pageX;
       const diffX = this.currentX - this.startX;
-      const moveBy = Math.floor(diffX / this.dragThreshold);
-
-      if (moveBy !== 0) {
-        let newIndex = (this.initialOffset - moveBy) % this.tracks.length;
-        if (newIndex < 0) newIndex = this.tracks.length + newIndex;
-
-        if (newIndex !== this.activeIndex) {
-          this.activeIndex = newIndex;
-          this.startX = this.currentX;
-          this.pauseAllAudio();
-          this.playTrack(this.activeIndex);
-        }
+      if (Math.abs(diffX) > this.dragThreshold) {
+        this.isTap = false; // Mark as drag if threshold is exceeded
       }
     },
     touchDrag(e) {
       e.preventDefault();
-      this.drag(e.touches[0]); // Handle touch-specific dragging
+      this.drag(e.touches[0]);
     },
     endDrag() {
       this.isDragging = false;
       this.$refs.cardsContainer.classList.remove('dragging');
 
-      // Remove event listeners
       document.removeEventListener('mousemove', this.drag);
       document.removeEventListener('mouseup', this.endDrag);
       document.removeEventListener('touchmove', this.touchDrag);
@@ -180,54 +181,11 @@ export default {
         audio.play();
         this.currentAudio = audio;
       }
-    },
-    fadeOutAudio(audio) {
-      let volume = audio.volume;
-      const fadeOutInterval = setInterval(() => {
-        if (volume > 0.05) {
-          volume -= 0.1;
-          audio.volume = volume;
-        } else {
-          audio.volume = 0;
-          audio.pause();
-          clearInterval(fadeOutInterval);
-        }
-      }, 100);
     }
   },
   mounted() {
     this.$refs.cardsContainer.addEventListener('mousedown', this.startDrag);
     this.$refs.cardsContainer.addEventListener('touchstart', this.startTouchDrag, { passive: false });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') {
-        this.activeIndex = (this.activeIndex - 1 + this.tracks.length) % this.tracks.length;
-        this.pauseAllAudio();
-        this.playTrack(this.activeIndex);
-      } else if (e.key === 'ArrowRight') {
-        this.activeIndex = (this.activeIndex + 1) % this.tracks.length;
-        this.pauseAllAudio();
-        this.playTrack(this.activeIndex);
-      }
-    });
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting && this.currentAudio) {
-          this.fadeOutAudio(this.currentAudio);
-          this.currentAudio = null;
-        }
-      });
-    });
-
-    observer.observe(this.$refs.musicSection);
-
-    // Handle orientation changes
-    window.addEventListener('resize', () => {
-      this.isDragging = false; // Reset dragging state on orientation changes
-    });
   }
 };
 </script>
-
-<style></style>
