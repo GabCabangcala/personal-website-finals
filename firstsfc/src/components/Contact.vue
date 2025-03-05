@@ -5,7 +5,6 @@
       <div class="contact-container">
         <div class="contact-text">
           <p>Feel free to reach out for collaboration or inquiries!</p>
-          <p>(probably wouldn't respond though haha)</p>
           <div class="contact-links">
             <a href="mailto:gjcabangcala@student.apc.edu.ph" class="contact-link">
               <i class="fas fa-envelope"></i>
@@ -110,22 +109,102 @@ export default {
 </script>
 
 <style>
-.comment-box {
-  border: 1px solid var(--border-color);
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  background-color: var(--background-secondary);
+.contact-section {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: #333;
+  padding: 40px 0;
 }
 
-.send-message-btn {
-  background-color: var(--accent-color);
-  color: white;
+.section-title {
+  font-size: 2em;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.contact-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contact-text {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.contact-links {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.contact-link {
+  color: #007aff;
+  font-size: 1.5em;
+}
+
+.contact-form {
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1em;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 1em;
+  font-weight: 600;
+  text-align: center;
+  color: #fff;
+  background-color: #007aff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: #005bb5;
+}
+
+.comments-section {
+  width: 100%;
+  max-width: 500px;
+}
+
+.comment-box {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
 }
 
 .clear-comments-btn {
-  background-color: var(--accent-hover);
-  color: white;
+  background-color: #ff3b30;
   margin-bottom: 10px;
+}
+
+.clear-comments-btn:hover {
+  background-color: #d32f2f;
 }
 </style>
