@@ -17,7 +17,7 @@
                 :alt="track.title" 
                 @click.stop="playTrack(index)"
               >
-              <audio :src="track.audio" ref="audioElements"></audio>
+              <audio :src="track.audio" ref="el => audioElements[index] = el"></audio>
             </li>
           </ul>
         </div>
@@ -32,91 +32,39 @@
       return {
         tracks: [
           { 
-            cover: '/assets/avenged.jpg', 
-            audio: '/assets/DearGod.mp3',
+            cover: require('@/assets/avenged.jpg'), 
+            audio: require('@/assets/DearGod.mp3'),
             title: 'Avenged Sevenfold - Dear God'
           },
           { 
-            cover: '/assets/LP.jpg', 
-            audio: '/assets/WhatI\'veDone.mp3',
+            cover: require('@/assets/LP.jpg'), 
+            audio: require('@/assets/WhatI\'veDone.mp3'),
             title: 'Linkin Park - What I\'ve Done'
           },
           { 
-            cover: '/assets/MB.jpg', 
-            audio: '/assets/ThatsLife.mp3',
+            cover: require('@/assets/MB.jpg'), 
+            audio: require('@/assets/ThatsLife.mp3'),
             title: 'Michael Bublé - That\'s Life'
           },
           { 
-            cover: '/assets/JK.jpg', 
-            audio: '/assets/HateYou.mp3',
+            cover: require('@/assets/JK.jpg'), 
+            audio: require('@/assets/HateYou.mp3'),
             title: 'Jungkook - Hate You'
           }
         ],
         activeIndex: 0,
         currentAudio: null,
-        isDragging: false,
-        startX: 0,
-        currentX: 0,
-        dragThreshold: 50
+        audioElements: []
       }
     },
     mounted() {
-      this.setupEventListeners();
       this.updateCoverflow();
     },
     methods: {
-      setupEventListeners() {
-        const container = this.$refs.cardsContainer;
-        
-        container.addEventListener('mousedown', this.startDrag);
-        container.addEventListener('touchstart', this.startDrag, { passive: false });
-        
-        document.addEventListener('keydown', this.handleKeyNavigation);
-      },
-      startDrag(e) {
-        const event = e.touches ? e.touches[0] : e;
-        this.isDragging = true;
-        this.startX = event.clientX;
-        
-        document.addEventListener('mousemove', this.drag);
-        document.addEventListener('touchmove', this.drag, { passive: false });
-        document.addEventListener('mouseup', this.endDrag);
-        document.addEventListener('touchend', this.endDrag);
-      },
-      drag(e) {
-        if (!this.isDragging) return;
-        
-        const event = e.touches ? e.touches[0] : e;
-        this.currentX = event.clientX;
-        const diffX = this.currentX - this.startX;
-        
-        if (Math.abs(diffX) > this.dragThreshold) {
-          const direction = diffX > 0 ? -1 : 1;
-          this.changeTrack(direction);
-          this.startX = this.currentX;
-        }
-      },
-      endDrag() {
-        this.isDragging = false;
-        
-        document.removeEventListener('mousemove', this.drag);
-        document.removeEventListener('touchmove', this.drag);
-        document.removeEventListener('mouseup', this.endDrag);
-        document.removeEventListener('touchend', this.endDrag);
-      },
-      handleKeyNavigation(e) {
-        if (e.key === 'ArrowLeft') this.changeTrack(-1);
-        if (e.key === 'ArrowRight') this.changeTrack(1);
-      },
-      changeTrack(direction) {
-        this.activeIndex = (this.activeIndex + direction + this.tracks.length) % this.tracks.length;
-        this.updateCoverflow();
-      },
       handleCardClick(index) {
-        if (!this.isDragging) {
-          this.activeIndex = index;
-          this.updateCoverflow();
-        }
+        this.activeIndex = index;
+        this.updateCoverflow();
+        this.playTrack(index);
       },
       playTrack(index) {
         console.log(`Playing track at index: ${index}`);
@@ -127,7 +75,7 @@
         }
         
         // Play new audio
-        const audioElement = this.$refs.audioElements[index];
+        const audioElement = this.audioElements[index];
         audioElement.play();
         this.currentAudio = audioElement;
       },
