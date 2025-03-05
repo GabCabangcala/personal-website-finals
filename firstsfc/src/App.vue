@@ -42,7 +42,7 @@ export default {
 
 <style>
 :root {
-    --background-primary: #e4e4d7;
+    --background-primary: #e0e0de;
     --background-secondary: #f5f5f7;
     --text-primary: #1d1d1f;
     --text-secondary: #86868b;
