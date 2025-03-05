@@ -30,12 +30,12 @@
     data() {
       return {
         images: [
-          { src: require('@/assets/gallery1.jpg'), alt: 'Gallery Image 1' },
-          { src: require('@/assets/gallery2.jpg'), alt: 'Gallery Image 2' },
-          { src: require('@/assets/gallery3.jpg'), alt: 'Gallery Image 3' },
-          { src: require('@/assets/gallery4.jpg'), alt: 'Gallery Image 4' },
-          { src: require('@/assets/gallery5.jpg'), alt: 'Gallery Image 5' },
-          { src: require('@/assets/gallery6.jpg'), alt: 'Gallery Image 6' }
+          { src: require('/workspaces/personal-website-finals/firstsfc/src/assets/gallery1.jpg'), alt: 'Gallery Image 1' },
+          { src: require('/workspaces/personal-website-finals/firstsfc/src/assets/gallery2.jpg'), alt: 'Gallery Image 2' },
+          { src: require('/workspaces/personal-website-finals/firstsfc/src/assets/gallery3.jpg'), alt: 'Gallery Image 3' },
+          { src: require('/workspaces/personal-website-finals/firstsfc/src/assets/gallery4.jpg'), alt: 'Gallery Image 4' },
+          { src: require('/workspaces/personal-website-finals/firstsfc/src/assets/gallery5.jpg'), alt: 'Gallery Image 5' },
+          { src: require('/workspaces/personal-website-finals/firstsfc/src/assets/gallery6.jpg'), alt: 'Gallery Image 6' }
         ]
       };
     }
