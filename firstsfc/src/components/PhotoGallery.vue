@@ -190,28 +190,28 @@ export default {
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 0;
 }
 
-.modal-content {
-  display: flex; /* Ensure the modal content is flexbox-centered */
-  justify-content: center;
-  align-items: center;
+.modal-content img {
+  max-width: 80%;
+  max-height: 80vh;
+  object-fit: contain;
+  border: none; /* No borders */
+  border-radius: 0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transform: scale(1); /* Default scale */
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Highlight glow */
 }
 
-.modal-content img {
-  max-width: 70%; /* Reduce the width further */
-  max-height: 70vh; /* Ensure proper scaling */
-  object-fit: contain;
-  border: none; /* Remove any borders */
-  border-radius: 15; /* Remove rounded corners */
-  transition: transform 0.3s ease;
-  transform: scale(0.6); /* Make the image slightly smaller */
+.modal-content img:hover {
+  transform: scale(1.05); /* Slight zoom on hover */
 }
+
 
 
 .close {
