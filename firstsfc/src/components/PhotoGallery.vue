@@ -4,41 +4,70 @@
       <h2 class="section-title">{{ title }}</h2>
       <p class="section-subtitle">{{ subtitle }}</p>
       
-      <div class="gallery-grid">
+      <!-- Filter buttons -->
+      <div class="gallery-filters">
+        <button 
+          v-for="category in categories" 
+          :key="category"
+          :class="['filter-btn', { active: currentFilter === category }]"
+          @click="filterImages(category)"
+        >
+          {{ category }}
+        </button>
+      </div>
+
+      <!-- Gallery grid with transitions -->
+      <transition-group 
+        name="gallery-fade" 
+        tag="div" 
+        class="gallery-grid"
+      >
         <div 
-          class="gallery-item" 
-          v-for="(image, index) in images" 
-          :key="index" 
-          @click="openModal(image)"
+          v-for="(image, index) in filteredImages" 
+          :key="image.id" 
+          class="gallery-item"
+          :class="{ 'featured': image.featured }"
+          @click="openModal(index)"
         >
           <div class="image-wrapper">
-            <img :src="image.src" :alt="image.alt">
+            <img 
+              :src="image.src" 
+              :alt="image.alt"
+              loading="lazy"
+            >
             <div class="image-overlay">
-              <span class="zoom-icon">🔍</span>
+              <span class="image-title">{{ image.title }}</span>
+              <span class="image-category">{{ image.category }}</span>
             </div>
           </div>
         </div>
-      </div>
+      </transition-group>
     </div>
   </section>
 
+  <!-- Fullscreen Modal -->
   <teleport to="body">
-    <transition name="image-zoom">
-      <div 
-        v-if="isModalOpen" 
-        class="fullscreen-image-modal" 
-        @click="closeModal"
-      >
-        <div class="fullscreen-image-container">
+    <transition name="modal-fade">
+      <div v-if="isModalOpen" class="fullscreen-modal" @click="closeModal">
+        <div class="modal-content" @click.stop>
+          <button class="nav-btn prev" @click="prevImage">&lt;</button>
+          <button class="nav-btn next" @click="nextImage">&gt;</button>
           <button class="close-btn" @click="closeModal">&times;</button>
-          <div class="fullscreen-image-wrapper">
-            <img 
-              :src="currentImage.src" 
-              :alt="currentImage.alt"
-              @click.stop
-            >
+          
+          <div class="image-container">
+            <transition name="slide-fade" mode="out-in">
+              <img 
+                :key="currentImageIndex"
+                :src="filteredImages[currentImageIndex].src" 
+                :alt="filteredImages[currentImageIndex].alt"
+              >
+            </transition>
           </div>
-          <div class="image-caption">{{ currentImage.alt }}</div>
+          
+          <div class="image-info">
+            <h3>{{ filteredImages[currentImageIndex].title }}</h3>
+            <p>{{ filteredImages[currentImageIndex].description }}</p>
+          </div>
         </div>
       </div>
     </transition>
@@ -46,76 +75,190 @@
 </template>
 
 <script>
-import gallery1 from '@/assets/gallery1.jpg'
-import gallery2 from '@/assets/gallery2.jpg'
-import gallery3 from '@/assets/gallery3.jpg'
-import gallery4 from '@/assets/gallery4.jpg'
-import gallery5 from '@/assets/gallery5.jpg'
-import gallery6 from '@/assets/gallery6.jpg'
-import gallery7 from '@/assets/gallery7.jpg'
-import gallery8 from '@/assets/gallery8.jpg'
-import gallery9 from '@/assets/gf2.jpg'
-import gallery10 from '@/assets/carousel2.jpg'
+import { ref, computed } from 'vue'
+// Import your images here
 
 export default {
   name: 'PhotoGallery',
   props: {
     title: {
       type: String,
-      default: 'Gallery'
+      default: 'Photo Gallery'
     },
     subtitle: {
       type: String,
-      default: 'A collection of moments and creations.'
-    },
-    images: {
-      type: Array,
-      default: () => [
-        { src: gallery1, alt: 'Gallery Image 1' },
-        { src: gallery2, alt: 'Gallery Image 2' },
-        { src: gallery3, alt: 'Gallery Image 3' },
-        { src: gallery4, alt: 'Gallery Image 4' },
-        { src: gallery5, alt: 'Gallery Image 5' },
-        { src: gallery6, alt: 'Gallery Image 6' },
-        { src: gallery7, alt: 'Gallery Image 7' },
-        { src: gallery8, alt: 'Gallery Image 8' },
-        { src: gallery9, alt: 'Gallery Image 9' },
-        { src: gallery10, alt: 'Gallery Image 10' },
-      ]
+      default: 'Explore my visual journey'
     }
   },
-  data() {
+  setup() {
+    const currentFilter = ref('All')
+    const currentImageIndex = ref(0)
+    const isModalOpen = ref(false)
+
+    const images = [
+      {
+        id: 1,
+        src: gallery1,
+        alt: 'Nature Scene',
+        title: 'Mountain Vista',
+        category: 'Nature',
+        description: 'Beautiful mountain landscape at sunset',
+        featured: true
+      },
+      // Add more images with similar structure
+    ]
+
+    const categories = computed(() => {
+      const cats = ['All', ...new Set(images.map(img => img.category))]
+      return cats
+    })
+
+    const filteredImages = computed(() => {
+      if (currentFilter.value === 'All') return images
+      return images.filter(img => img.category === currentFilter.value)
+    })
+
+    const filterImages = (category) => {
+      currentFilter.value = category
+    }
+
+    const openModal = (index) => {
+      currentImageIndex.value = index
+      isModalOpen.value = true
+      document.body.style.overflow = 'hidden'
+    }
+
+    const closeModal = () => {
+      isModalOpen.value = false
+      document.body.style.overflow = 'auto'
+    }
+
+    const nextImage = () => {
+      currentImageIndex.value = (currentImageIndex.value + 1) % filteredImages.value.length
+    }
+
+    const prevImage = () => {
+      currentImageIndex.value = currentImageIndex.value === 0 
+        ? filteredImages.value.length - 1 
+        : currentImageIndex.value - 1
+    }
+
+    // Keyboard navigation
+    const handleKeyDown = (e) => {
+      if (!isModalOpen.value) return
+      
+      switch(e.key) {
+        case 'ArrowRight': nextImage(); break
+        case 'ArrowLeft': prevImage(); break
+        case 'Escape': closeModal(); break
+      }
+    }
+
+    // Lifecycle hooks
+    onMounted(() => {
+      window.addEventListener('keydown', handleKeyDown)
+    })
+
+    onUnmounted(() => {
+      window.removeEventListener('keydown', handleKeyDown)
+    })
+
     return {
-      isModalOpen: false,
-      currentImage: {}
-    };
-  },
-  methods: {
-    openModal(image) {
-      this.currentImage = image;
-      this.isModalOpen = true;
-      document.body.style.overflow = 'hidden';
-    },
-    closeModal() {
-      this.isModalOpen = false;
-      document.body.style.overflow = 'auto';
-    },
-    handleKeyDown(event) {
-      if (event.key === 'Escape') {
-        this.closeModal();
-      }
-    }
-  },
-  watch: {
-    isModalOpen(newValue) {
-      if (newValue) {
-        window.addEventListener('keydown', this.handleKeyDown);
-      } else {
-        window.removeEventListener('keydown', this.handleKeyDown);
-      }
+      currentFilter,
+      currentImageIndex,
+      isModalOpen,
+      categories,
+      filteredImages,
+      filterImages,
+      openModal,
+      closeModal,
+      nextImage,
+      prevImage
     }
   }
 }
 </script>
 
-[... CSS remains the same as in the previous version ...]
+<style scoped>
+/* Add these new styles */
+.gallery-filters {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.filter-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 20px;
+  background: var(--background-secondary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-btn.active {
+  background: var(--accent-color);
+  color: white;
+}
+
+.gallery-fade-move {
+  transition: transform 0.6s ease;
+}
+
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.modal-fade-enter-from,
+.modal-fade-leave-to {
+  opacity: 0;
+}
+
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+  transition: all 0.3s ease;
+}
+
+.slide-fade-enter-from {
+  transform: translateX(50px);
+  opacity: 0;
+}
+
+.slide-fade-leave-to {
+  transform: translateX(-50px);
+  opacity: 0;
+}
+
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.nav-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.prev {
+  left: 1rem;
+}
+
+.next {
+  right: 1rem;
+}
+
+.featured {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+/* Maintain existing styles and update as needed */
+</style>
