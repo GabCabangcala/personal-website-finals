@@ -8,14 +8,14 @@
         ref="cardsContainer" 
         aria-label="Music Playlist"
         role="list"
-        @mousedown="startDrag"
+        @mousedown.prevent="startDrag"
         @touchstart.prevent="startTouchDrag"
       >
         <li 
           v-for="(track, index) in tracks" 
           :key="index" 
           :class="{ 'active': activeIndex === index }"
-          :style="getCardStyle(index)"
+          :style="getCardTransform(index)"
           @click="navigateToTrack(index)"
           role="listitem"
           :aria-selected="activeIndex === index"
@@ -63,15 +63,49 @@ export default {
       currentAudio: null,
       isDragging: false,
       startX: 0,
+      currentX: 0,
       initialOffset: 0,
       dragThreshold: 50,
       lastClickTime: 0,
-      clickDelay: 300 // milliseconds to prevent accidental double-clicks
+      clickDelay: 300, // milliseconds to prevent accidental double-clicks
+      rotationAngle: 40,
+      zDistance: 50,
+      coverSize: 200
     }
   },
   methods: {
+    getCardTransform(index) {
+      const indexDiff = index - this.activeIndex;
+      const maxDistance = 3;
+      const opacity = Math.max(0, 1 - (Math.abs(indexDiff) / maxDistance));
+      
+      if (index === this.activeIndex) {
+        return {
+          transform: `translateX(-50%) translateZ(${this.zDistance}px)`,
+          zIndex: 10,
+          opacity: 1
+        };
+      } else if (index < this.activeIndex) {
+        return {
+          transform: `translateX(calc(-50% - ${Math.abs(indexDiff) * (this.coverSize * 0.7)}px)) 
+                      rotateY(${this.rotationAngle}deg) 
+                      translateZ(0)`,
+          zIndex: 10 - Math.abs(indexDiff),
+          opacity: opacity
+        };
+      } else {
+        return {
+          transform: `translateX(calc(-50% + ${Math.abs(indexDiff) * (this.coverSize * 0.7)}px)) 
+                      rotateY(-${this.rotationAngle}deg) 
+                      translateZ(0)`,
+          zIndex: 10 - Math.abs(indexDiff),
+          opacity: opacity
+        };
+      }
+    },
     navigateToTrack(index) {
       const currentTime = new Date().getTime();
+      
       // Prevent rapid successive clicks
       if (currentTime - this.lastClickTime < this.clickDelay) return;
       
@@ -81,7 +115,8 @@ export default {
       if (this.activeIndex === index) return;
       
       this.activeIndex = index;
-      this.updateCoverflow();
+      this.pauseAllAudio();
+      this.playTrack(index);
     },
     startTouchDrag(e) {
       this.startDrag(e.touches[0]);
@@ -98,28 +133,87 @@ export default {
         
         // Add event listeners
         document.addEventListener('mousemove', this.drag);
-        document.addEventListener('touchmove', this.drag, { passive: false });
+        document.addEventListener('touchmove', this.touchDrag, { passive: false });
         document.addEventListener('mouseup', this.endDrag);
         document.addEventListener('touchend', this.endDrag);
       }
     },
-    // ... rest of the methods remain the same as in the previous implementation
+    drag(e) {
+      if (!this.isDragging) return;
+      this.currentX = e.clientX || e.pageX;
+      const diffX = this.currentX - this.startX;
+      const moveBy = Math.floor(diffX / this.dragThreshold);
+      
+      if (moveBy !== 0) {
+        let newIndex = (this.initialOffset - moveBy) % this.tracks.length;
+        if (newIndex < 0) newIndex = this.tracks.length + newIndex;
+        
+        if (newIndex !== this.activeIndex) {
+          this.activeIndex = newIndex;
+          this.startX = this.currentX;
+          this.pauseAllAudio();
+          this.playTrack(this.activeIndex);
+        }
+      }
+    },
+    touchDrag(e) {
+      e.preventDefault();
+      this.drag(e.touches[0]);
+    },
+    endDrag() {
+      this.isDragging = false;
+      this.$refs.cardsContainer.classList.remove('dragging');
+      
+      // Remove event listeners
+      document.removeEventListener('mousemove', this.drag);
+      document.removeEventListener('touchmove', this.touchDrag);
+      document.removeEventListener('mouseup', this.endDrag);
+      document.removeEventListener('touchend', this.endDrag);
+    },
+    pauseAllAudio() {
+      this.$refs.audioElements.forEach(audio => {
+        audio.pause();
+        audio.currentTime = 0;
+      });
+    },
+    playTrack(index) {
+      const audio = this.$refs.audioElements[index];
+      if (audio) {
+        this.pauseAllAudio();
+        audio.volume = 0.5;
+        audio.play();
+        this.currentAudio = audio;
+      }
+    },
+    fadeOutAudio(audio) {
+      let volume = audio.volume;
+      const fadeOutInterval = setInterval(() => {
+        if (volume > 0.05) {
+          volume -= 0.1;
+          audio.volume = volume;
+        } else {
+          audio.volume = 0;
+          audio.pause();
+          clearInterval(fadeOutInterval);
+        }
+      }, 100);
+    }
   },
   mounted() {
-    this.updateCoverflow();
-    
-    // Remove previous event listeners as they are now added in the template
-    
+    // Keyboard navigation
     document.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowLeft') {
         this.activeIndex = (this.activeIndex - 1 + this.tracks.length) % this.tracks.length;
-        this.updateCoverflow();
+        this.pauseAllAudio();
+        this.playTrack(this.activeIndex);
       } else if (e.key === 'ArrowRight') {
         this.activeIndex = (this.activeIndex + 1) % this.tracks.length;
-        this.updateCoverflow();
+        this.pauseAllAudio();
+        this.playTrack(this.activeIndex);
       }
     });
     
+    // Intersection Observer to fade out audio when section is out of view
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (!entry.isIntersecting && this.currentAudio) {
