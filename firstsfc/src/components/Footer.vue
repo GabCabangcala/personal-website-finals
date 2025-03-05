@@ -17,34 +17,4 @@
   }
   </script>
   
-  <style scoped>
- footer {
-    background-color: var(--background-primary);
-    padding: 40px 0;
-    text-align: center;
-    border-top: 1px solid var(--border-color);
-}
-
-.footer-text {
-    font-size: 12px;
-    color: var(--text-secondary);
-    margin-bottom: 16px;
-}
-
-.footer-links {
-    display: flex;
-    justify-content: center;
-    gap: 24px;
-}
-
-.footer-link {
-    color: var(--text-secondary);
-    text-decoration: none;
-    font-size: 14px;
-    transition: color 0.2s ease;
-}
-
-.footer-link:hover {
-    color: var(--accent-color);
-}
-  </style>
+  <style></style>

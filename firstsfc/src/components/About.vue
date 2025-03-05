@@ -29,32 +29,4 @@ export default {
 }
 </script>
 
-<style scoped>
-.about-section {
-    background-color: var(--background-secondary);
-}
-
-.about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
-}
-
-.about-image {
-    position: relative;
-}
-
-.about-image img {
-    width: 100%;
-    border-radius: 12px;
-    box-shadow: var(--card-shadow);
-}
-
-.about-content p {
-    font-size: 17px;
-    line-height: 1.47059;
-    margin-bottom: 24px;
-    color: var(--text-primary);
-}
-</style>
+<style></style>
