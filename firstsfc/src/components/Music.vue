@@ -1,18 +1,16 @@
 <template>
-  <section id="music-section" class="music-section" data-aos="fade-right" data-aos-anchor-placement="top-bottom">
+  <section 
+    id="music-section" 
+    class="music-section" 
+    data-aos="fade-right" 
+    data-aos-anchor-placement="top-bottom" 
+    ref="musicSection"
+  >
     <div class="container">
       <h2 class="section-title">My Top Tunes</h2>
-      <p class="section-subtitle">Drag or Click Album Covers</p>
-      <div 
-        class="cards-container" 
-        @mousedown="startDrag" 
-        @touchstart="startDragTouch"
-      >
-        <ul 
-          class="cards" 
-          ref="cardsContainer" 
-          :class="{ 'is-dragging': isDragging }"
-        >
+      <p class="section-subtitle">Click Album Covers to Navigate</p>
+      <div class="cards-container">
+        <ul class="cards" ref="cardsContainer">
           <li 
             v-for="(track, index) in tracks" 
             :key="index" 
@@ -62,57 +60,36 @@ export default {
       ],
       activeIndex: 0,
       currentAudio: null,
-      isDragging: false,
-      startX: 0,
-      currentX: 0,
-      dragThreshold: 50
+      observer: null
+    }
+  },
+  mounted() {
+    // Create Intersection Observer to detect when section is out of view
+    this.observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) {
+            this.fadeOutAudio();
+          }
+        });
+      },
+      {
+        threshold: 0.1 // Trigger when less than 10% of section is visible
+      }
+    );
+
+    // Start observing the music section
+    if (this.$refs.musicSection) {
+      this.observer.observe(this.$refs.musicSection);
+    }
+  },
+  beforeUnmount() {
+    // Clean up the observer
+    if (this.observer) {
+      this.observer.disconnect();
     }
   },
   methods: {
-    startDragTouch(e) {
-      this.startDrag(e.touches[0]);
-    },
-    startDrag(e) {
-      this.isDragging = true;
-      this.startX = e.clientX;
-      
-      window.addEventListener('mousemove', this.onDrag);
-      window.addEventListener('mouseup', this.endDrag);
-      window.addEventListener('touchmove', this.onTouchDrag, { passive: false });
-      window.addEventListener('touchend', this.endDrag);
-    },
-    onTouchDrag(e) {
-      this.onDrag(e.touches[0]);
-    },
-    onDrag(e) {
-      if (!this.isDragging) return;
-      
-      this.currentX = e.clientX;
-      const diffX = this.currentX - this.startX;
-      
-      if (Math.abs(diffX) > this.dragThreshold) {
-        if (diffX > 0) {
-          // Dragged right, move to previous
-          this.activeIndex = (this.activeIndex - 1 + this.tracks.length) % this.tracks.length;
-        } else {
-          // Dragged left, move to next
-          this.activeIndex = (this.activeIndex + 1) % this.tracks.length;
-        }
-        
-        this.startX = this.currentX;
-        this.$nextTick(() => {
-          this.playTrack(this.activeIndex);
-        });
-      }
-    },
-    endDrag() {
-      this.isDragging = false;
-      
-      window.removeEventListener('mousemove', this.onDrag);
-      window.removeEventListener('mouseup', this.endDrag);
-      window.removeEventListener('touchmove', this.onTouchDrag);
-      window.removeEventListener('touchend', this.endDrag);
-    },
     getCardStyle(index) {
       const indexDiff = index - this.activeIndex;
       
@@ -147,10 +124,8 @@ export default {
       };
     },
     handleCardClick(index) {
-      if (!this.isDragging) {
-        this.activeIndex = index;
-        this.playTrack(index);
-      }
+      // Only change active index when the card is clicked
+      this.activeIndex = index;
     },
     playTrack(index) {
       // Stop previously playing audio
@@ -164,6 +139,20 @@ export default {
       audioElement.volume = 0.3;
       audioElement.play();
       this.currentAudio = audioElement;
+    },
+    fadeOutAudio() {
+      if (this.currentAudio) {
+        const fadeOutInterval = setInterval(() => {
+          if (this.currentAudio.volume > 0.1) {
+            this.currentAudio.volume -= 0.1;
+          } else {
+            this.currentAudio.pause();
+            this.currentAudio.currentTime = 0;
+            this.currentAudio.volume = 0.3; // Reset volume
+            clearInterval(fadeOutInterval);
+          }
+        }, 100);
+      }
     }
   }
 }
@@ -182,11 +171,6 @@ export default {
   align-items: center;
   position: relative;
   height: 300px;
-  cursor: grab;
-}
-
-.cards-container.is-dragging {
-  cursor: grabbing;
 }
 
 .cards {
