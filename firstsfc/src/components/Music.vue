@@ -250,6 +250,7 @@ export default {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
   overflow: hidden;
+  margin-bottom: 50px; /* Add margin to separate sections */
 }
 
 .container {
