@@ -17,7 +17,6 @@
 import Navigation from './components/Navigation.vue'
 import Hero from './components/Hero.vue'
 import About from './components/About.vue'
-import Music from './components/Music.vue'
 import Skills from './components/Skills.vue'
 import Activities from './components/Activities.vue'
 import Gallery from './components/Gallery.vue'
@@ -30,7 +29,6 @@ export default {
     Navigation,
     Hero,
     About,
-    Music,
     Skills,
     Activities,
     Gallery,
