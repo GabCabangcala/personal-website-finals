@@ -251,6 +251,8 @@ export default {
   text-align: center;
   overflow: hidden;
   margin-bottom: 50px; /* Add margin to separate sections */
+  z-index: 10; /* Ensure it appears above other sections */
+  position: relative; /* Ensure z-index works */
 }
 
 .container {
