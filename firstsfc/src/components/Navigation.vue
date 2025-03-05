@@ -25,13 +25,10 @@
 
       mobileMenuToggle.addEventListener('click', function () {
         navMenu.classList.toggle('active');
-
-        // Accessibility improvement: Update ARIA attributes
         const expanded = navMenu.classList.contains('active');
         mobileMenuToggle.setAttribute('aria-expanded', expanded);
       });
 
-      // Close menu after clicking a link
       const navLinks = document.querySelectorAll('.nav-link');
       navLinks.forEach(link => {
         link.addEventListener('click', () => {
