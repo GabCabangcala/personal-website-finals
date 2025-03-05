@@ -7,7 +7,7 @@
         
         <div class="gallery-grid">
           <div class="gallery-item" v-for="(image, index) in images" :key="index">
-            <img :src="image.src" :alt="image.alt">
+            <img :src="images" :alt="image.alt">
           </div>
         </div>
       </div>
@@ -15,13 +15,6 @@
   </template>
   
   <script>
-  import gallery1 from '@/assets/gallery1.jpg'
-  import gallery2 from '@/assets/gallery2.jpg'
-  import gallery3 from '@/assets/gallery3.jpg'
-  import gallery4 from '@/assets/gallery4.jpg'
-  import gallery5 from '@/assets/gallery5.jpg'
-  import gallery6 from '@/assets/gallery6.jpg'
-  
   export default {
     name: 'PhotoGallery',
     props: {
@@ -37,12 +30,12 @@
     data() {
       return {
         images: [
-          { src: gallery1, alt: 'Gallery Image 1' },
-          { src: gallery2, alt: 'Gallery Image 2' },
-          { src: gallery3, alt: 'Gallery Image 3' },
-          { src: gallery4, alt: 'Gallery Image 4' },
-          { src: gallery5, alt: 'Gallery Image 5' },
-          { src: gallery6, alt: 'Gallery Image 6' }
+          { src: require('@/assets/gallery1.jpg'), alt: 'Gallery Image 1' },
+          { src: require('@/assets/gallery2.jpg'), alt: 'Gallery Image 2' },
+          { src: require('@/assets/gallery3.jpg'), alt: 'Gallery Image 3' },
+          { src: require('@/assets/gallery4.jpg'), alt: 'Gallery Image 4' },
+          { src: require('@/assets/gallery5.jpg'), alt: 'Gallery Image 5' },
+          { src: require('@/assets/gallery6.jpg'), alt: 'Gallery Image 6' }
         ]
       };
     }
