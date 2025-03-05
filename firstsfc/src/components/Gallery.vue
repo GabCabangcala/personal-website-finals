@@ -1,19 +1,20 @@
 <template>
-    <section id="gallery" class="gallery-section" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
-      <div id="app">
-        <photo-gallery></photo-gallery>
-      </div>
-    </section>
-  </template>
-  
-  <script>
-  export default {
-    name: 'Gallery'
-  }
-  </script>
-  
-  <style scoped>
- .gallery-grid {
+  <section id="gallery" class="gallery-section" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+    <div class="container">
+      <h2 class="section-title">Gallery</h2>
+      <photo-gallery></photo-gallery>
+    </div>
+  </section>
+</template>
+
+<script>
+export default {
+  name: 'Gallery',
+};
+</script>
+
+<style scoped>
+.gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
@@ -36,4 +37,4 @@
     height: 100%;
     object-fit: cover;
 }
-  </style>
+</style>

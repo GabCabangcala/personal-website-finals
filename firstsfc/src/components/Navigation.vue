@@ -1,5 +1,5 @@
 <template>
-  <div class="nav-wrapper" data-aos="fade-down" data-aos-anchor-placement="top-bottom">
+  <div class="nav-wrapper">
     <div class="container">
       <nav class="navbar">
         <a href="#" class="nav-brand">Gab.</a>

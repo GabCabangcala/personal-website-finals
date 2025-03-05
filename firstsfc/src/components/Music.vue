@@ -1,20 +1,20 @@
 <template>
-  <section id="music-section" class="music-section" data-aos="fade-right" data-aos-anchor-placement="top-bottom">
+  <section id="music-section" class="music-section">
     <div class="container">
       <h2 class="section-title">My Top 3 tunes</h2>
       <p class="section-subtitle">Press the Album cover</p>
       <ul class="cards">
         <li>
-          <img src="Images/cover.jpg" width="600" height="600" alt="Album Cover 1">
-          <audio src="music/chorus1.mp3"></audio>
+          <img src="../Images/cover.jpg" width="600" height="600" alt="Album Cover 1" @click="playAudio(1)">
+          <audio ref="audio1" src="../music/chorus1.mp3"></audio>
         </li>
         <li>
-          <img src="Images/cover.jpg" width="600" height="600" alt="Album Cover 2">
-          <audio src="music/chorus2.mp3"></audio>
+          <img src="../Images/cover.jpg" width="600" height="600" alt="Album Cover 2" @click="playAudio(2)">
+          <audio ref="audio2" src="../music/chorus2.mp3"></audio>
         </li>
         <li>
-          <img src="Images/cover.jpg" width="600" height="600" alt="Album Cover 3">
-          <audio src="music/chorus3.mp3"></audio>
+          <img src="../Images/cover.jpg" width="600" height="600" alt="Album Cover 3" @click="playAudio(3)">
+          <audio ref="audio3" src="../music/chorus3.mp3"></audio>
         </li>
       </ul>
     </div>
@@ -23,7 +23,11 @@
 
 <script>
 export default {
-  name: 'Music'
+  methods: {
+    playAudio(index) {
+      this.$refs[`audio${index}`].play();
+    }
+  }
 }
 </script>
 
@@ -108,6 +112,4 @@ export default {
   .cards li.active {
       z-index: 10;
   }
-
-
 </style>
