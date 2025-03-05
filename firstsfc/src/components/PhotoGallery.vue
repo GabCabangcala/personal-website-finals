@@ -214,23 +214,29 @@ export default {
 
 .close {
   position: absolute;
-  top: -40px;
-  right: 0;
+  top: 20px;
+  right: 35px;
   color: #fff;
   font-size: 40px;
   font-weight: bold;
   cursor: pointer;
-  transition: color 0.3s ease;
 }
 
-.close:hover {
+.close:hover,
+.close:focus {
   color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .caption {
-  color: #ccc;
-  margin-top: 15px;
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
   text-align: center;
+  color: #ccc;
+  padding: 10px 0;
 }
 
 .modal-fade-enter-active,
