@@ -77,7 +77,15 @@
 <script>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import gallery1 from '@/assets/gallery1.jpg'
-// Import other images similarly
+import gallery2 from '@/assets/gallery2.jpg'
+import gallery3 from '@/assets/gallery3.jpg'
+import gallery4 from '@/assets/gallery4.jpg'
+import gallery5 from '@/assets/gallery5.jpg'
+import gallery6 from '@/assets/gallery6.jpg'
+import gallery7 from '@/assets/gallery7.jpg'
+import gallery8 from '@/assets/gallery8.jpg'
+import gallery9 from '@/assets/gf2.jpg'
+import gallery10 from '@/assets/carousel2.jpg'
 
 export default {
   name: 'PhotoGallery',
@@ -106,7 +114,87 @@ export default {
         description: 'Beautiful mountain landscape at sunset',
         featured: true
       },
-      // Add more images with similar structure
+      {
+        id: 2,
+        src: gallery2,
+        alt: 'City Scene',
+        title: 'Urban Exploration',
+        category: 'City',
+        description: 'A bustling city street at night',
+        featured: false
+      },
+      {
+        id: 3,
+        src: gallery3,
+        alt: 'Beach Scene',
+        title: 'Sunny Beach',
+        category: 'Beach',
+        description: 'A sunny day at the beach',
+        featured: false
+      },
+      {
+        id: 4,
+        src: gallery4,
+        alt: 'Forest Scene',
+        title: 'Forest Walk',
+        category: 'Nature',
+        description: 'A peaceful walk through the forest',
+        featured: false
+      },
+      {
+        id: 5,
+        src: gallery5,
+        alt: 'Mountain Scene',
+        title: 'Mountain Climb',
+        category: 'Nature',
+        description: 'Climbing a mountain peak',
+        featured: false
+      },
+      {
+        id: 6,
+        src: gallery6,
+        alt: 'Desert Scene',
+        title: 'Desert Adventure',
+        category: 'Desert',
+        description: 'Exploring the desert dunes',
+        featured: false
+      },
+      {
+        id: 7,
+        src: gallery7,
+        alt: 'Snow Scene',
+        title: 'Snowy Landscape',
+        category: 'Snow',
+        description: 'A snowy landscape in winter',
+        featured: false
+      },
+      {
+        id: 8,
+        src: gallery8,
+        alt: 'Lake Scene',
+        title: 'Lake View',
+        category: 'Nature',
+        description: 'A serene view of the lake',
+        featured: false
+      },
+      {
+        id: 9,
+        src: gallery9,
+        alt: 'Sunset Scene',
+        title: 'Sunset Glow',
+        category: 'Nature',
+        description: 'A beautiful sunset over the hills',
+        featured: false
+      },
+      {
+        id: 10,
+        src: gallery10,
+        alt: 'Night Sky Scene',
+        title: 'Starry Night',
+        category: 'Night',
+        description: 'A starry night sky',
+        featured: false
+      }
     ]
 
     const categories = computed(() => {
