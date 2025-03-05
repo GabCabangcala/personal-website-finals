@@ -62,7 +62,7 @@ export default {
       const indexDiff = index - this.activeIndex;
       
       // CSS Variables
-      const coverSize = 200; // Adjust this to match your --cover-size
+      const coverSize = 150; // Adjust this to match your --cover-size
       const rotationAngle = 40;
       
       // Styling for the active card
@@ -117,7 +117,7 @@ export default {
 
 <style scoped>
 :root {
-  --cover-size: 200px;
+  --cover-size: 150px; /* Adjusted cover size */
   --rotation-angle: 40deg;
   --z-distance: 50px;
 }
