@@ -61,7 +61,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .nav-wrapper {
   position: fixed;
   top: 0;
@@ -89,7 +89,6 @@ export default {
   margin-left: auto; 
 }
 
-
 @media (max-width: 991px) {
   .navbar-collapse {
     position: absolute;
@@ -115,4 +114,5 @@ export default {
     margin: 10px 0;
   }
 }
+
 </style>
