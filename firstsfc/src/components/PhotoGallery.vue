@@ -208,7 +208,8 @@ export default {
   max-height: 80vh; /* Maintain proper aspect ratio */
   object-fit: contain;
   border-radius: 15px; /* Add rounded corners */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  box-shadow: none;
+  border: none;
   transition: transform 0.3s ease; /* Add a smooth animation */
   transform: scale(0.9); /* Slightly reduce size */
 }
