@@ -30,8 +30,11 @@
             </div>
             <button type="submit" class="btn btn-block">Send Message</button>
           </form>
+        </div>
+        <div class="comments-section" data-aos="fade-up" data-aos-delay="100" data-aos-anchor-placement="top-bottom">
+          <h3 class="section-title">Comments</h3>
           <div id="messages">
-            <div v-for="comment in comments" :key="comment.id">
+            <div v-for="comment in comments" :key="comment.id" class="comment-box">
               <p><strong>{{ comment.name }}:</strong> {{ comment.comment }}</p>
             </div>
           </div>
@@ -102,4 +105,12 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.comment-box {
+  border: 1px solid var(--border-color);
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background-color: var(--background-secondary);
+}
+</style>
