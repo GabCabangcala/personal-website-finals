@@ -2,7 +2,7 @@
   <section id="music-section" ref="musicSection" class="music-section" data-aos="fade-right" data-aos-anchor-placement="top-bottom">
     <div class="container">
       <h2 class="section-title">My Top Tunes</h2>
-      <p class="section-subtitle">Click Album Covers to Navigate</p>
+      <p class="section-subtitle">Click Album Covers to Navigate(wear headphones 😉)/p>
       <ul
         class="cards"
         ref="cardsContainer"
