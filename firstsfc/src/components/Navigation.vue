@@ -1,5 +1,6 @@
+<!-- filepath: /workspaces/personal-website-finals/firstsfc/src/components/Navigation.vue -->
 <template>
-  <div class="nav-wrapper">
+  <div class="nav-wrapper" data-aos="fade-down" data-aos-anchor-placement="top-bottom">
     <div class="container">
       <nav class="navbar">
         <a href="#" class="nav-brand">Gab.</a>

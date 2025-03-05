@@ -1,7 +1,7 @@
+<!-- filepath: /workspaces/personal-website-finals/firstsfc/src/components/Gallery.vue -->
 <template>
   <section id="gallery" class="gallery-section" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
-    <div class="container">
-      <h2 class="section-title">Gallery</h2>
+    <div id="app">
       <photo-gallery></photo-gallery>
     </div>
   </section>
@@ -9,8 +9,8 @@
 
 <script>
 export default {
-  name: 'Gallery',
-};
+  name: 'Gallery'
+}
 </script>
 
 <style scoped>

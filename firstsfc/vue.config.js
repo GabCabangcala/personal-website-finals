@@ -1,8 +1,4 @@
-module.exports = {
-  publicPath: process.env.NODE_ENV === 'production' ? '/my-vue-website/' : '/',
-  lintOnSave: false,
-  devServer: {
-    port: 8080,
-    open: true,
-  },
-};
+const { defineConfig } = require('@vue/cli-service')
+module.exports = defineConfig({
+  transpileDependencies: true
+})
