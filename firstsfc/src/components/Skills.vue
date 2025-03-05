@@ -72,7 +72,9 @@
           <h3 class="skill-title">MySQL</h3>
           <div class="skill-progress">
             <div class="skill-progress-bar" style="width: 60%"></div>
-            <div class="skill-card" data-aos="fade-up" data-aos-delay="1100" data-aos-anchor-placement="top-bottom">
+          </div>
+        </div>
+        <div class="skill-card" data-aos="fade-up" data-aos-delay="1100" data-aos-anchor-placement="top-bottom">
           <i class="fab fa-vuejs skill-icon"></i>
           <h3 class="skill-title">Vue</h3>
           <div class="skill-progress">
@@ -84,7 +86,6 @@
           <h3 class="skill-title">Supabase</h3>
           <div class="skill-progress">
             <div class="skill-progress-bar" style="width: 40%"></div>
-          </div>
           </div>
         </div>
       </div>
