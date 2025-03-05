@@ -295,48 +295,7 @@ section {
 }
 
 /* HOBBIES & GOALS SECTION */
-.activities-section {
-    background-color: var(--background-secondary);
-}
 
-.activities-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-}
-
-.activities-card {
-    background-color: var(--background-primary);
-    border-radius: 12px;
-    padding: 40px;
-    box-shadow: var(--card-shadow);
-    border: 1px solid var(--border-color);
-}
-
-.activities-card h3 {
-    font-size: 24px;
-    margin-bottom: 30px;
-    color: var(--text-primary);
-}
-
-.activities-list {
-    list-style: none;
-}
-
-.activities-list li {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    font-size: 17px;
-}
-
-.activities-list i {
-    color: var(--accent-color);
-    margin-right: 16px;
-    font-size: 18px;
-    width: 24px;
-    text-align: center;
-}
 
 /* GALLERY SECTION */
 .gallery-grid {
