@@ -25,10 +25,6 @@
                 <input type="text" id="name" name="name" class="form-control" required>
               </div>
               <div class="form-group">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" id="email" name="email" class="form-control" required>
-              </div>
-              <div class="form-group">
                 <label for="message" class="form-label">Message</label>
                 <textarea id="feedback" name="message" class="form-control" required></textarea>
               </div>

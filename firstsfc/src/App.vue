@@ -213,7 +213,7 @@ section {
 }
 
 .about-image img {
-    width: 100%;
+    width: 90%;
     border-radius: 12px;
     box-shadow: var(--card-shadow);
 }
