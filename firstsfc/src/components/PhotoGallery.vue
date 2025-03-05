@@ -38,7 +38,73 @@
 </template>
 
 <script>
-// ... (script remains the same as in previous version)
+import gallery1 from '@/assets/gallery1.jpg'
+import gallery2 from '@/assets/gallery2.jpg'
+import gallery3 from '@/assets/gallery3.jpg'
+import gallery4 from '@/assets/gallery4.jpg'
+import gallery5 from '@/assets/gallery5.jpg'
+import gallery6 from '@/assets/gallery6.jpg'
+import gallery7 from '@/assets/gallery7.jpg'
+import gallery8 from '@/assets/gallery8.jpg'
+import gallery9 from '@/assets/gf2.jpg'
+import gallery10 from '@/assets/carousel2.jpg'
+
+export default {
+  name: 'PhotoGallery',
+  props: {
+    title: {
+      type: String,
+      default: 'Gallery'
+    },
+    subtitle: {
+      type: String,
+      default: 'A collection of moments and creations.'
+    }
+  },
+  data() {
+    return {
+      images: [
+        { src: gallery1, alt: 'Gallery Image 1' },
+        { src: gallery2, alt: 'Gallery Image 2' },
+        { src: gallery3, alt: 'Gallery Image 3' },
+        { src: gallery4, alt: 'Gallery Image 4' },
+        { src: gallery5, alt: 'Gallery Image 5' },
+        { src: gallery6, alt: 'Gallery Image 6' },
+        { src: gallery7, alt: 'Gallery Image 7' },
+        { src: gallery8, alt: 'Gallery Image 8' },
+        { src: gallery9, alt: 'Gallery Image 9' },
+        { src: gallery10, alt: 'Gallery Image 10' },
+      ],
+      isModalOpen: false,
+      currentImage: {}
+    };
+  },
+  methods: {
+    openModal(image) {
+      this.currentImage = image;
+      this.isModalOpen = true;
+      document.body.style.overflow = 'hidden';
+    },
+    closeModal() {
+      this.isModalOpen = false;
+      document.body.style.overflow = 'auto';
+    },
+    handleKeyDown(event) {
+      if (event.key === 'Escape') {
+        this.closeModal();
+      }
+    }
+  },
+  watch: {
+    isModalOpen(newValue) {
+      if (newValue) {
+        window.addEventListener('keydown', this.handleKeyDown);
+      } else {
+        window.removeEventListener('keydown', this.handleKeyDown);
+      }
+    }
+  }
+}
 </script>
 
 <style scoped>
@@ -132,34 +198,29 @@
 }
 
 .modal-content {
-  position: relative;
-  width: 90%;
-  max-width: 1200px;
-  max-height: 90%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: flex; /* Ensure the modal content is flexbox-centered */
   justify-content: center;
-  margin: 0 auto;
+  align-items: center;
 }
 
 .modal-content img {
-  max-width: 100%;
-  max-height: 90vh;
+  max-width: 80%; /* Reduce the image size */
+  max-height: 80vh; /* Maintain proper aspect ratio */
   object-fit: contain;
-  border-radius: 15px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 15px; /* Add rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  transition: transform 0.3s ease; /* Add a smooth animation */
+  transform: scale(0.9); /* Slightly reduce size */
 }
 
 .close {
-  position: absolute;
-  top: -40px;
-  right: 0;
+  position: absolute; /* Adjust position for accessibility */
+  top: 20px; /* Place closer to the modal */
+  right: 20px;
   color: #fff;
   font-size: 40px;
   font-weight: bold;
   cursor: pointer;
-  z-index: 1001;
 }
 
 .close:hover,
@@ -168,6 +229,7 @@
   text-decoration: none;
   cursor: pointer;
 }
+
 
 .caption {
   margin: 10px 0;
