@@ -30,6 +30,7 @@
             </div>
             <button type="submit" class="btn btn-block">Send Message</button>
           </form>
+          <div id="messages"></div>
         </div>
       </div>
     </div>
@@ -44,7 +45,8 @@ export default {
   data() {
     return {
       name: '',
-      message: ''
+      message: '',
+      comments: []
     }
   },
   methods: {
@@ -62,8 +64,24 @@ export default {
         alert('Your message has been sent!')
         this.name = ''
         this.message = ''
+        this.loadComments()
       }
+    },
+    async loadComments() {
+      const { data: comments, error } = await supabase
+        .from('comments')
+        .select('name, message')
+
+      if (error) {
+        console.error('Error fetching comments:', error)
+        return
+      }
+
+      this.comments = comments
     }
+  },
+  mounted() {
+    this.loadComments()
   }
 }
 </script>
