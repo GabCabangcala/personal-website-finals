@@ -21,22 +21,19 @@
       </div>
     </div>
 
-    <transition name="modal-fade">
+    <transition name="image-zoom">
       <div 
         v-if="isModalOpen" 
-        class="modal" 
-        @click.self="closeModal"
+        class="image-modal" 
+        @click="closeModal"
       >
-        <div class="modal-content">
-          <button class="close" @click="closeModal" aria-label="Close">
-            &times;
-          </button>
+        <div class="image-modal-content">
           <img 
             :src="currentImage.src" 
             :alt="currentImage.alt"
             @click.stop
           >
-          <div class="caption">{{ currentImage.alt }}</div>
+          <div class="image-caption">{{ currentImage.alt }}</div>
         </div>
       </div>
     </transition>
@@ -116,7 +113,7 @@ export default {
 <style scoped>
 .gallery-section {
   padding: 60px 0;
-  background-color: #f4f4f4;
+  background-color: #f9f9f9;
 }
 
 .section-title {
@@ -124,6 +121,7 @@ export default {
   margin-bottom: 20px;
   text-align: center;
   color: #333;
+  font-weight: 300;
 }
 
 .section-subtitle {
@@ -131,6 +129,7 @@ export default {
   margin-bottom: 40px;
   text-align: center;
   color: #666;
+  font-weight: 300;
 }
 
 .gallery-grid {
@@ -140,19 +139,23 @@ export default {
   padding: 0 15px;
 }
 
+.gallery-item {
+  perspective: 1000px;
+}
+
 .image-wrapper {
   position: relative;
-  border-radius: 15px;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s ease;
 }
 
 .image-wrapper img {
   width: 100%;
   height: 250px;
   object-fit: cover;
-  transition: transform 0.3s ease;
+  transition: transform 0.4s ease;
 }
 
 .image-overlay {
@@ -166,22 +169,23 @@ export default {
   justify-content: center;
   align-items: center;
   opacity: 0;
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
 }
 
 .zoom-icon {
   font-size: 2rem;
   color: white;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.4s ease;
 }
 
 .image-wrapper:hover {
-  transform: scale(1.05);
+  transform: scale(1.02);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.12);
 }
 
 .image-wrapper:hover .image-overlay {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.4);
   opacity: 1;
 }
 
@@ -189,70 +193,59 @@ export default {
   opacity: 1;
 }
 
-.modal {
+.image-modal {
   position: fixed;
   z-index: 1000;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* More transparent background */
+  background-color: rgba(255, 255, 255, 0.95);
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0;
+  padding: 20px;
+  cursor: pointer;
 }
 
-.modal-content {
+.image-modal-content {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   max-width: 90%;
   max-height: 90%;
+  transition: all 0.4s ease;
 }
 
-.modal-content img {
+.image-modal-content img {
   max-width: 100%;
-  max-height: 80vh;
+  max-height: 90vh;
   object-fit: contain;
-  border: none;
-  transition: transform 0.3s ease;
+  border-radius: 20px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  transition: transform 0.4s ease;
 }
 
-.modal-content img:hover {
-  transform: scale(1.05);
+.image-modal-content img:hover {
+  transform: scale(1.02);
 }
 
-.close {
-  position: absolute;
-  top: -40px;
-  right: 0;
-  background: none;
-  border: none;
-  color: white;
-  font-size: 40px;
-  cursor: pointer;
-  padding: 0;
-  line-height: 1;
-}
-
-.close:hover {
-  color: #bbb;
-}
-
-.caption {
-  margin-top: 10px;
-  color: white;
+.image-caption {
+  margin-top: 15px;
+  color: #555;
+  font-size: 1rem;
+  max-width: 80%;
   text-align: center;
 }
 
-.modal-fade-enter-active,
-.modal-fade-leave-active {
-  transition: opacity 0.3s ease;
+.image-zoom-enter-active,
+.image-zoom-leave-active {
+  transition: all 0.4s ease;
 }
-.modal-fade-enter-from,
-.modal-fade-leave-to {
+.image-zoom-enter-from,
+.image-zoom-leave-to {
   opacity: 0;
+  transform: scale(0.9);
 }
 </style>
