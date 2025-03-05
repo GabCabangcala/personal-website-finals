@@ -28,11 +28,12 @@
               <label for="message" class="form-label">Message</label>
               <textarea id="feedback" name="message" v-model="message" class="form-control" required></textarea>
             </div>
-            <button type="submit" class="btn btn-block">Send Message</button>
+            <button type="submit" class="btn btn-block send-message-btn">Send Message</button>
           </form>
         </div>
         <div class="comments-section" data-aos="fade-up" data-aos-delay="100" data-aos-anchor-placement="top-bottom">
           <h3 class="section-title">Comments</h3>
+          <button @click="clearComments" class="btn btn-block clear-comments-btn">Clear Comments</button>
           <div id="messages">
             <div v-for="comment in comments" :key="comment.id" class="comment-box">
               <p><strong>{{ comment.name }}:</strong> {{ comment.comment }}</p>
@@ -97,6 +98,9 @@ export default {
       } catch (err) {
         console.error('Unexpected error:', err)
       }
+    },
+    clearComments() {
+      this.comments = []
     }
   },
   mounted() {
@@ -112,5 +116,16 @@ export default {
   margin-bottom: 10px;
   border-radius: 5px;
   background-color: var(--background-secondary);
+}
+
+.send-message-btn {
+  background-color: var(--accent-color);
+  color: white;
+}
+
+.clear-comments-btn {
+  background-color: var(--accent-hover);
+  color: white;
+  margin-bottom: 10px;
 }
 </style>
