@@ -14,7 +14,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav mx-auto">
+        <ul class="navbar-nav ms-auto"> <!-- Changed from mx-auto to ms-auto -->
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#home">Home</a>
           </li>
@@ -39,13 +39,14 @@
   </nav>
 </template>
 
+
 <script>
 export default {
   name: 'Navbar',
 };
 </script>
 
-<style>
+<style scoped>
 .nav-wrapper {
     position: fixed;
     top: 0;
@@ -57,4 +58,9 @@ export default {
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     padding-left: 20px;
 }
+
+.navbar-nav {
+    margin-right: 20px; /* Adjust alignment */
+}
 </style>
+
