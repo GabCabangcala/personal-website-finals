@@ -1,4 +1,3 @@
-// filepath: /workspaces/personal-website-finals/firstsfc/src/components/Contact.vue
 <template>
   <section id="contact" class="contact-section" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
     <div class="container">
@@ -33,7 +32,7 @@
           </form>
           <div id="messages">
             <div v-for="comment in comments" :key="comment.id">
-              <p><strong>{{ comment.name }}:</strong> {{ comment.message }}</p>
+              <p><strong>{{ comment.name }}:</strong> {{ comment.comment }}</p>
             </div>
           </div>
         </div>
@@ -57,16 +56,17 @@ export default {
   methods: {
     async submitForm() {
       try {
-        const { error } = await supabase
+        const { data, error } = await supabase
           .from('comments')
           .insert([
-            { name: this.name, message: this.message }
+            { name: this.name, comment: this.message }
           ])
 
         if (error) {
           console.error('Error inserting data:', error)
           alert('There was an error sending your message.')
         } else {
+          console.log('Data inserted:', data)
           alert('Your message has been sent!')
           this.name = ''
           this.message = ''
@@ -81,13 +81,14 @@ export default {
       try {
         const { data: comments, error } = await supabase
           .from('comments')
-          .select('name, message')
+          .select('name, comment')
 
         if (error) {
           console.error('Error fetching comments:', error)
           return
         }
 
+        console.log('Comments fetched:', comments)
         this.comments = comments
       } catch (err) {
         console.error('Unexpected error:', err)
