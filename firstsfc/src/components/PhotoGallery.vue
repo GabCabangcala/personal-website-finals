@@ -30,12 +30,12 @@
     data() {
       return {
         images: [
-          { src: '/assets/gallery1', alt: 'Gallery Image 1' },
-          { src: '/assets/gallery2', alt: 'Gallery Image 2' },
-          { src: '/assets/gallery3', alt: 'Gallery Image 3' },
-          { src: '/assets/gallery4', alt: 'Gallery Image 4' },
-          { src: '/assets/gallery5', alt: 'Gallery Image 5' },
-          { src: '/assets/gallery6', alt: 'Gallery Image 6' }
+          { src: '/assets/gallery1.jpg', alt: 'Gallery Image 1' },
+          { src: '/assets/gallery2.jpg', alt: 'Gallery Image 2' },
+          { src: '/assets/gallery3.jpg', alt: 'Gallery Image 3' },
+          { src: '/assets/gallery4.jpg', alt: 'Gallery Image 4' },
+          { src: '/assets/gallery5.jpg', alt: 'Gallery Image 5' },
+          { src: '/assets/gallery6.jpg', alt: 'Gallery Image 6' }
         ]
       };
     }
